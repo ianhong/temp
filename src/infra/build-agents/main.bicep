@@ -2,6 +2,7 @@ param prefix string
 param suffix string = ''
 param location string
 param environment string
+param ddosProtectionPlanName string = 'adt-ddos'
 
 param vmssAdminUsername string = 'alwayson'
 @secure()
@@ -26,6 +27,11 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   location: location
   tags: default_tags
   properties: {}
+}
+
+resource ddosProtectionPlan 'Microsoft.Network/ddosProtectionPlans@2021-05-01' = {
+  name: ddosProtectionPlanName
+  location: location
 }
 
 resource bastionNsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
@@ -142,6 +148,10 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
         }
       }
     ]
+    enableDdosProtection: ddosProtectionPlanEnabled
+    ddosProtectionPlan: {
+      id: ddosProtectionPlan.id
+    }
   }
 }
 
