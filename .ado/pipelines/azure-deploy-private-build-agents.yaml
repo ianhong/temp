@@ -8,9 +8,9 @@ parameters:
 - name: environment
   displayName: 'Environment (Subscriptions)'
   type: string
-  default: 'e2e'
+  default: 'adt'
   values:
-  - e2e
+  - adt
   - int
   - prod
 
@@ -23,7 +23,7 @@ variables:
 - name:  'workingDirectory'       # Terraform working directory
   value: 'src/infra/build-agents'
 - name:  'azureServiceConnection' # environment specific service connection
-  value: 'alwayson-${{ parameters.environment }}-serviceconnection'
+  value: 'az-np-svc-609-DigAPB-ADT'
 
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
