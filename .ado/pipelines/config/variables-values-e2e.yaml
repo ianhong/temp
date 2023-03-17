@@ -4,12 +4,12 @@ variables:
 
 # Resource prefix for this environment
 - name:  'prefix'
-  value: 'mcce2e'          # <===== CHANGE THIS! Must not be longer than 6 characters! Needs to be a unique prefix
+  value: 'e2eadt'          # <===== CHANGE THIS! Must not be longer than 6 characters! Needs to be a unique prefix
 
 # The first value in 'stampLocations' is the primary region used for global services.
 # IMPORTANT! Changing the primary region (first value) is a BREAKING change and will destroy CosmosDB and Front Door.
 - name: 'stampLocations'
-  value: '["uksouth"]'    # Check which regions are valid. There is a list in /src/infra/README.md
+  value: '["westus2"]'    # Check which regions are valid. There is a list in /src/infra/README.md
 
 # Terraform state variables
 - name:  'terraformResourceGroup'
@@ -19,10 +19,10 @@ variables:
 
 # Other settings
 - name:  'contactEmail'
-  value: 'noreply@microsoft.com'  # <===== CHANGE THIS VALUE TO ONE OF YOUR REAL EMAIL ADDRESSES (OR A GROUP)!
+  value: 'cberon@costco.com'  # <===== CHANGE THIS VALUE TO ONE OF YOUR REAL EMAIL ADDRESSES (OR A GROUP)!
 
   # Custom DNS name settings
 - name: 'envDnsZoneRG'
-  value: 'mc-dnszones-rg'                         # <===== CHANGE THIS VALUE
+  value: 'digital-adt-dns-rg'                         # <===== CHANGE THIS VALUE
 - name: 'envDomainName'
-  value: 'e2e.connected.mission-critical.app'     # <===== CHANGE THIS VALUE
+  value: 'adt.e2e.solamora.com'     # <===== CHANGE THIS VALUE

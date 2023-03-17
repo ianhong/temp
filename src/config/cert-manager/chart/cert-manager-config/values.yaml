@@ -5,4 +5,4 @@ azure:
   managedIdentityClientId:      ""        # Client ID of the AKS Kubelet identity
 
 letsencrypt:
-  contactEmail: ""    # Email address which will get registered with Lets Encrypt
+  contactEmail: "cberon@costco.com"    # Email address which will get registered with Lets Encrypt
