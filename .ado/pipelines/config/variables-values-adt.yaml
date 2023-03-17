@@ -4,7 +4,7 @@ variables:
 
 # Resource prefix for this environment
 - name:  'prefix'
-  value: 'e2eadt'          # <===== CHANGE THIS! Must not be longer than 6 characters! Needs to be a unique prefix
+  value: 'adt'          # <===== CHANGE THIS! Must not be longer than 6 characters! Needs to be a unique prefix
 
 # The first value in 'stampLocations' is the primary region used for global services.
 # IMPORTANT! Changing the primary region (first value) is a BREAKING change and will destroy CosmosDB and Front Door.
@@ -13,7 +13,7 @@ variables:
 
 # Terraform state variables
 - name:  'terraformResourceGroup'
-  value: 'mcconnected-terraformstate-rg'      # <===== CHANGE THIS VALUE IF NEEDED
+  value: '$(prefix)-terraformstate-rg'      # <===== CHANGE THIS VALUE IF NEEDED
 - name:  'terraformStorageAccount'
   value: '$(prefix)tfstatestore'              # <===== CHANGE THIS VALUE! Needs to be a globally unique name
 
