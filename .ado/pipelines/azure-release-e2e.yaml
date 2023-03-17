@@ -24,7 +24,7 @@ parameters:
 
 variables:
 - name:  'environment' # set the environment name as variable
-  value: 'adte2e'
+  value: 'adt'
 
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - name:  'workingDirectory'    # Terraform root working directory
