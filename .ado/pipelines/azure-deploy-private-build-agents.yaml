@@ -27,7 +27,7 @@ variables:
 
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
-- group: '${{ parameters.environment }}-env-vg' # contains environment-specific values (secrets which cannot be stored in the config file)
+#- group: '${{ parameters.environment }}-env-vg' # contains environment-specific values (secrets which cannot be stored in the config file)
 
 stages:
 
