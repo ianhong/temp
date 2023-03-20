@@ -4,8 +4,8 @@ variable "prefix" {
   description = "A prefix used for all resources in this example. Must not contain any special characters. Must not be longer than 10 characters."
   type        = string
   validation {
-    condition     = length(var.prefix) >= 5 && length(var.prefix) <= 10
-    error_message = "Prefix must be between 5 and 10 characters long."
+    condition     = length(var.prefix) >= 3 && length(var.prefix) <= 10
+    error_message = "Prefix must be between 3 and 10 characters long."
   }
 }
 
