@@ -1,36 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@cberon-costco 
-Azure
-/
-Mission-Critical-Connected
-Public template
-Fork your own copy of Azure/Mission-Critical-Connected
-Code
-Issues
-1
-Pull requests
-1
-Actions
-Projects
-Security
-Insights
-Mission-Critical-Connected/src/infra/workload/releaseunit/modules/stamp/roleassignments.tf
-@heoelri
-heoelri Add missing data contributor role (#480)
-…
-Latest commit 78fefa0 3 days ago
- History
- 3 contributors
-@heoelri@sebader@dependabot
- 99 lines (86 sloc)  4.83 KB
-
 # Permission for AKS to assign the pre-created PIP to its load balancer
 # https://learn.microsoft.com/azure/aks/static-ip#create-a-service-using-the-static-ip-address
 resource "azurerm_role_assignment" "aks_vnet_contributor" {
@@ -130,18 +97,3 @@ resource "azurerm_role_assignment" "healthservice_eh_sender" {
   role_definition_name = "Azure Event Hubs Data Sender"
   principal_id         = azurerm_user_assigned_identity.healthservice.principal_id
 }
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Mission-Critical-Connected/roleassignments.tf at main · Azure/Mission-Critical-Connected
