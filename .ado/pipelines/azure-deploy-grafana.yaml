@@ -8,14 +8,14 @@ parameters:
 - name: environment
   displayName: 'Environment (Subscriptions)'
   type: string
-  default: 'e2e'
+  default: 'adt'
   values:
-  - e2e
+  - adt
   - int
   - prod
 
 pool:
-  name: 'e2e-private-agents' # self-hosted agentpool
+  name: 'adt-private-agents' # self-hosted agentpool
 
 variables:
 - name:  'environment' # set the environment name as variable
