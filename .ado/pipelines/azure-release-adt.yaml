@@ -20,7 +20,7 @@ parameters:
 - name: destroyEnvironment
   displayName: "Destroy environment at the end"
   type: boolean
-  default: true
+  default: false
 
 variables:
 - name:  'environment' # set the environment name as variable
