@@ -401,7 +401,7 @@ stages:
               parameters:
                 workingDirectory: '$(Pipeline.Workspace)/terraformOutputGlobalInfra'  # Global infra deploy output directory
 
-            - ${{ if ne(parameters.environment, 'e2e') }}: # Only in int/prod
+            - ${{ if ne(parameters.environment, 'adt') }}: # Only in int/prod
               - task: AzureCLI@2
                 displayName: 'Fetch previous release prefix through disabled Front Door origins'
                 retryCountOnTaskFailure: 1
@@ -453,7 +453,7 @@ stages:
                     echo "##vso[task.setvariable variable=oldReleasePrefix]$prefix"
                     echo "##vso[task.setvariable variable=oldReleaseSuffix]$suffix"
 
-            - ${{ if eq(parameters.environment, 'e2e') }}: # Special case for E2E only
+            - ${{ if eq(parameters.environment, 'adt') }}: # Special case for E2E only
               - task: PowerShell@2
                 displayName: '(E2E-only) Set oldRelease Prefix and Suffix to prefix-customSuffix'
                 inputs:
@@ -466,7 +466,7 @@ stages:
                     echo "##vso[task.setvariable variable=oldReleaseSuffix]$(customSuffix)"
 
             # Remove disabled backends from Front Door and reset weight on current ones to 50. (Not required for E2E since we destroy E2E Front Door anyway below)
-            - ${{ if ne(parameters.environment, 'e2e') }}:
+            - ${{ if ne(parameters.environment, 'adt') }}:
               - template: steps-frontdoor-traffic-switch.yaml
                 parameters:
                   trafficWeightNewBackends: 50
@@ -648,7 +648,7 @@ stages:
                     }
                   }
 
-    - ${{ if eq(parameters.environment, 'e2e') }}: # Only happens in E2E
+    - ${{ if eq(parameters.environment, 'adt') }}: # Only happens in E2E
       - deployment: 'destroyE2EGlobalResourcesJob'  # Destroy globally shared resources for this E2E env
         displayName: 'Destroy E2E Global Resources'
         timeoutInMinutes: 120 # extend the default timeout of 60min since destroy can take a while
