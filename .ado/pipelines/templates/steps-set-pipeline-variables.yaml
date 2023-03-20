@@ -64,7 +64,7 @@ steps:
       $domainSuffix = "www"
 
       $globalResourceSuffix = ""
-      if("$(environment)" -eq "e2e")
+      if("$(environment)" -eq "adt")
       {
         echo "*** Running e2e environment. Setting globalResourceSuffix to '$(customSuffix)'"
         $globalResourceSuffix = "$(customSuffix)"
