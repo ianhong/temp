@@ -1,35 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@cberon-costco 
-Azure
-/
-Mission-Critical-Connected
-Public template
-Fork your own copy of Azure/Mission-Critical-Connected
-Code
-Issues
-1
-Pull requests
-1
-Actions
-Projects
-Security
-Insights
-Mission-Critical-Connected/.ado/pipelines/templates/jobs-deploy-workload.yaml
-@heoelri
-heoelri fix deployment (#476)
-Latest commit 21184f7 3 days ago
- History
- 3 contributors
-@heoelri@sebader@dependabot
- 322 lines (251 sloc)  16.3 KB
-
 jobs: # using jobs so they each run in parallel
 
 - job: deploycontainerHealthService
@@ -295,18 +263,3 @@ jobs: # using jobs so they each run in parallel
                 throw "*** Error on upload to storage account $($stamp.public_storage_account_name)"
             }
           }
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Mission-Critical-Connected/jobs-deploy-workload.yaml at main · Azure/Mission-Critical-Connected
