@@ -1,3 +1,35 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@cberon-costco 
+Azure
+/
+Mission-Critical-Connected
+Public template
+Fork your own copy of Azure/Mission-Critical-Connected
+Code
+Issues
+1
+Pull requests
+1
+Actions
+Projects
+Security
+Insights
+Mission-Critical-Connected/src/infra/workload/releaseunit/modules/stamp/keyvault.tf
+@heoelri
+heoelri fix (#477)
+Latest commit 378219d 3 days ago
+ History
+ 3 contributors
+@sebader@heoelri@dependabot
+ 105 lines (80 sloc)  3.03 KB
+
 resource "azurerm_key_vault" "stamp" {
   name                = "${local.prefix_with_location}-kv"
   location            = azurerm_resource_group.stamp.location
@@ -103,3 +135,18 @@ resource "azurerm_monitor_diagnostic_setting" "kv" {
     }
   }
 }
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Mission-Critical-Connected/keyvault.tf at main · Azure/Mission-Critical-Connected
