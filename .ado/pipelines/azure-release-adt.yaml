@@ -14,7 +14,7 @@ trigger: none
 pr: none
 
 pool:
-  name: 'adt-private-agents' # self-hosted agentpool
+  name: 'digital adt build agents' # self-hosted agentpool
 
 parameters:
 - name: destroyEnvironment
