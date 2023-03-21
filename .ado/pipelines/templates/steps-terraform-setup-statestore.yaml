@@ -49,11 +49,21 @@ steps:
         if ($LastExitCode -ne 0) {
           throw "*** Error - could not create storage account"
         }
+      }
+
+      echo "*** Check if Private Endpoints for terraform state storage ${{ parameters.storageAccountName }} exists"
+      $peName = "${{ parameters.storageAccountName }}-pe"
+
+      $check = az network private-endpoint show --name $peName `
+                                                --resource-group ${{ parameters.resourceGroupName }} | ConvertFrom-Json
+
+      if (!$check) {
+        Write-Warning "*** WARN! Private Endpoint $peName does not exist. Creating..."
 
         $storageAccountId = $(az storage account show --name ${{ parameters.storageAccountName }} `
                                                       --resource-group ${{ parameters.resourceGroupName }} `
                                                       --query "id" -o tsv)
-        $peName = "${{ parameters.storageAccountName }}-pe"
+
 
         $buildAgentResourceGroupName = "$(prefix)-buildinfra-rg"
         $buildAgentVnetName = "$(prefix)buildinfra-vnet"
