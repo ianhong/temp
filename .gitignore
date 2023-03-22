@@ -10,3 +10,4 @@ locals.txt
 .vscode
 .tfstate
 .vs
+/src/infra/workload/globalresources/variables-e2e.tfvars
