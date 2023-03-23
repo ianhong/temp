@@ -17,5 +17,5 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name digital-adt001-uswest2-vnet-rg --location westus2
-      az network vnet create --name adt001-uswest2-vnet --address-prefix 10.0.0.0/23 --resource-group digital-adt001-uswest2-vnet-rg
+      az network vnet create --name adt001-uswest2-vnet --address-prefix 10.0.4.0/23 --resource-group digital-adt001-uswest2-vnet-rg
     
