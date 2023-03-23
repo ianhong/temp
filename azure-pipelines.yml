@@ -13,7 +13,7 @@ steps:
 - task: AzureCLI@2
   inputs:
     azureSubscription: az-np-svc-609-DigAPB-ADT
-    scriptType: ps
+    scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name digital-adt001-uswest2-vnet --location westus2
