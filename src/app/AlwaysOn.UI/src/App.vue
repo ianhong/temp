@@ -1,18 +1,25 @@
 <template>
-  <div>
-    <router-link :to="{ path: '/' }">Home</router-link> |
-    <router-link :to="{ name: 'catalogPage' }">Catalog</router-link>
+    <div id="header" class="c1000">
+        <a class="header-logo" href="https://www.costco.com/" id="WC_CachedHeaderDisplay_Link_2a"><img src="/img/logo.png" alt="USBC"></a>
+    </div>
+    <div>
+        <router-link :to="{ path: '/' }">Home</router-link> |
+        <router-link :to="{ name: 'catalogPage' }">Catalog</router-link>
 
-    <hr />
+        <hr />
 
-    <SystemMessage />
+        <SystemMessage />
 
-    <router-view :key="$route.fullPath"></router-view>
-  
-    <hr/>
+        <router-view :key="$route.fullPath"></router-view>
 
-    <footer>This is a reference implementation of <a href="https://github.com/Azure/Mission-Critical">Azure AlwaysOn</a>. Built in 2021-2022. Version: {{ versionLabel }}</footer>
-  </div>
+        <hr />
+
+        <footer class="footer">
+            <div id="footer-bottom" class="footer_copyright">
+                <p class="copyright">&#169; 1998 &#8212; <span id="copyright-year">2023</span> Costco Wholesale Corporation. <span class="rights">All rights reserved.</span></p>
+            </div>
+        </footer>
+    </div>
 </template>
 
 <script>
@@ -32,10 +39,3 @@ export default {
   },
 };
 </script>
-
-<style>
-footer {
-   font-style: italic;
-   font-size: 0.8em;
-}
-</style>
