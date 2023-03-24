@@ -25,4 +25,4 @@ variables:
 - name: 'envDnsZoneRG'
   value: 'digital-adt-dns-rg'                         # <===== CHANGE THIS VALUE
 - name: 'envDomainName'
-  value: 'adt.e2e.solamora.com'     # <===== CHANGE THIS VALUE
+  value: 'adt001.solamora.com'     # <===== CHANGE THIS VALUE
