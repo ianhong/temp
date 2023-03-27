@@ -1,6 +1,6 @@
 <template>
     <div id="header" class="c1000">
-        <a class="header-logo" href="https://www.costco.com/" id="WC_CachedHeaderDisplay_Link_2a"><img src="/img/logo.png" alt="USBC"></a>
+        <a class="header-logo" href="https://www.costco.com/" id="WC_CachedHeaderDisplay_Link_2a"><img src="/img/logo.png" alt="USBC" height="75px"></a>
     </div>
     <div>
         <router-link :to="{ path: '/' }">Home</router-link> |
