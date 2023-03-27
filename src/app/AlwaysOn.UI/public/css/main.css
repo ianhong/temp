@@ -41,7 +41,7 @@ button {
 		display: inline-block;
 		white-space: nowrap;
 		zoom: 1;
-		background-attachment: relative;
+		background-attachment: local;
 	}
 
 /* UTILITY CLASSES */
@@ -875,21 +875,12 @@ form .form-item input[type=checkbox] {
 	position: relative;
 }
 
-*form .form-item input[type=checkbox] {
-	top: -1px;
-	margin: 0 5px 0 0 !important;
-}
-
 input[type=radio] {
 	cursor: pointer;
 	width: auto;
 	top: 3px;
 	margin: 0 4px 0 0;
 	position: relative;
-}
-
-*input[type=radio] {
-	top: 2px;
 }
 
 /* INPUT PLACEHOLDER ADJUSTMENT FOR MOZILLA & CHROME */
@@ -1598,13 +1589,6 @@ div#header {
 			margin: 0px;
 			padding-bottom: 16px;
 		}
-
-//.direction_icons {
-	background-image: url(/wcsstore/CostcoGLOBALSAS/images/direction_swap_icon.png);
-	background-size: 96px 216px;
-	width: 24px;
-	height: 24px;
-}
 
 .warehouse_address_reverse_icon {
 	width: 25px;
@@ -4739,7 +4723,7 @@ label.placeholder {
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder,
 input::-moz-placeholder, textarea::-moz-placeholder,
-input:placeholder, textarea:placeholder {
+input::placeholder, textarea::placeholder {
 	color: #aaa;
 }
 /*
@@ -4907,10 +4891,7 @@ td.address {
 		position: absolute;
 		font-size: 12px;
 		background: url(/wcsstore/CostcoGLOBALSAS/images/fff-70.png);
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-		filter: alpha(opacity=70);
-		-moz-opacity: 0.7;
-		-khtml-opacity: 0.7;
+		filter: opacity(70%);
 		opacity: 0.7;
 	}
 
@@ -5386,8 +5367,6 @@ span.fakeLink:hover, span.fakeLink:focus, span.fakeLink.focus {
 .pharmacy-checkout-zerodollar-dialog {
 	height: 200px !important
 }
-
-;
 
 .checkout-review-button-container {
 	padding-top: 17px;
@@ -6168,7 +6147,6 @@ form .form-item.labelFix label:first-child {
 /*Defect CIS100067314 and CIS100068207 : UI Updation*/
 button, a.button, a.submit labelFix.submit {
 	margin: -2px 0 0 -2px\9;
-	!important
 }
 
 /*Defect CIS100067314 and CIS100068207 : UI Updation*/
@@ -6325,8 +6303,7 @@ select.validationError {
 
 /* Defect CIS100069907 : Letters on 'Continue Checkout' button are grey when clicked on Payment page in IE8*/
 .disableCheckout {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	filter: alpha(opacity=50);
+	filter: opacity(50%);
 }
 
 /* Defect CIS100069481 : Added styles to display map on WarehouseBrowse page*/
@@ -6359,8 +6336,8 @@ select.validationError {
 	position: absolute;
 	left: -500px;
 	top: -500px;
-	width: 1;
-	height: 1;
+	width: 1px;
+	height: 1px;
 	overflow: hidden;
 }
 
