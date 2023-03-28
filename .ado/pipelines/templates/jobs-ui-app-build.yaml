@@ -29,6 +29,11 @@ jobs:
       customCommand: 'run build'
       workingDir: '${{ parameters.workingDirectory }}'
 
+  - script: |
+      ls
+    displayName: check location
+    workingDirectory: '${{ parameters.workingDirectory }}'
+
   - task: PublishPipelineArtifact@1
     displayName: 'Publish built app'
     inputs:
