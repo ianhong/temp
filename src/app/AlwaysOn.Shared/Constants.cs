@@ -9,5 +9,6 @@ namespace AlwaysOn.Shared
         public const string AddCommentActionName = "AddComment";
         public const string AddRatingActionName = "AddRating";
         public const string DeleteObjectActionName = "DeleteObject";
+        public const string UpdateQuantityActionName = "UpdateInventoryQuantity";
     }
 }

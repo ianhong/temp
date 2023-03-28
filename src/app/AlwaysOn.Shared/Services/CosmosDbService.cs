@@ -24,14 +24,19 @@ namespace AlwaysOn.Shared.Services
 {
     public class CosmosDbService : IDatabaseService
     {
-        private readonly ILogger<CosmosDbService> _logger;
-        private readonly CosmosClient _dbClient;
+        protected readonly ILogger<CosmosDbService> _logger;
+        protected readonly CosmosClient _dbClient;
         private readonly Container _catalogItemsContainer;
         private readonly Container _commentsContainer;
         private readonly Container _ratingsContainer;
-        private readonly TelemetryClient _telemetryClient;
+        protected readonly Container _inventoryContainer;
+        protected readonly Container _ordersContainer;
+        protected readonly TelemetryClient _telemetryClient;
 
         private readonly CosmosLinqSerializerOptions _cosmosSerializationOptions = new CosmosLinqSerializerOptions() { PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase };
+
+        // Source: https://github.com/microsoft/ApplicationInsights-dotnet/blob/3822ab1c591298b4c0c00eb6a853265a180e8d70/WEB/Src/DependencyCollector/DependencyCollector/Implementation/RemoteDependencyConstants.cs#L3
+        protected const string AppInsightsDependencyType = "Azure DocumentDB";
 
         // Expects to find the following in SysConfiguration:
         // - AzureRegion
@@ -305,7 +310,7 @@ namespace AlwaysOn.Shared.Services
         /// </summary>
         /// <returns></returns>
         /// <exception cref="AlwaysOnDependencyException"></exception>
-        private async Task<IEnumerable<T>> ListDocumentsByQueryAsync<T>(IQueryable<T> queryable)
+        protected async Task<IEnumerable<T>> ListDocumentsByQueryAsync<T>(IQueryable<T> queryable)
         {
             FeedIterator<T> feedIterator = queryable.ToFeedIterator();
             int readIterations = 0;

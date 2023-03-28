@@ -14,6 +14,8 @@ namespace AlwaysOn.Shared
         public const string CosmosCatalogItemsContainerName = "catalogItems";
         public const string CosmosItemCommentsContainerName = "itemComments";
         public const string CosmosItemRatingsContainerName = "itemRatings";
+        public const string CosmosInventoryContainerName = "product";
+        public const string CosmosOrdersContainerName = "orders";
 
         public const string BackendStoragePoisonMessagesTableName = "backgroundProcessorPoisonMessages";
 
@@ -42,10 +44,16 @@ namespace AlwaysOn.Shared
         /// If not supplied, defaults to "unknown"
         /// </summary>
         public string AzureRegion => !string.IsNullOrEmpty(Configuration["AZURE_REGION"]) ? Configuration["AZURE_REGION"] : "unknown";
+        
         /// <summary>
         /// Short form of the AzureRegion setting. The format of this is like "eastus2"
         /// </summary>
         public string AzureRegionShort => AzureRegion.Replace(" ", "").ToLower();
+
+        /// <summary>
+        /// Client ID of the User-defined Managed Identity to be used for any MSI-based authentication
+        /// </summary>
+        public string ManagedIdentityClientId => Configuration["MANAGED_IDENTITY_CLIENTID"];
 
         /// <summary>
         /// API Key for restricted APIs
@@ -66,6 +74,9 @@ namespace AlwaysOn.Shared
         public string BackendStorageAccountName => Configuration["STORAGEACCOUNT_NAME"];
         public string BackendCheckpointBlobContainerName => Configuration["STORAGEACCOUNT_EHCHECKPOINTCONTAINERNAME"];
         public string RegionalLogAnalyticsWorkspaceId => Configuration["LOGANALYTICS_WORKSPACEID"];
+        public string RedisConnection => Configuration["REDIS_CONNECTION"];
+        public string ServicebusConnection => Configuration["SERVICEBUS_CONNECTION"];
+        public string ServicebusQueueName => Configuration["SERVICEBUS_QUEUENAME"];
 
         /// <summary>
         /// Controls how often checkpointing on Blob Storage is executed. The more often this happens, the more overhead and thus slower the processing.
