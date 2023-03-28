@@ -1133,6 +1133,10 @@ div#header {
 	left: 0;
 }
 
+.half-height {
+	height: 75px;
+}
+
 #header-promo {
 	position: absolute;
 	top: 50%;
@@ -1143,7 +1147,7 @@ div#header {
 	text-align: right;
 }
 
-	#header-promo h3 {
+#header-promo h3 {
 		*margin-top: -15px;
 	}
 
