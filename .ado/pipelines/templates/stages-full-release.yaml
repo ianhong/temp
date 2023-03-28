@@ -239,10 +239,23 @@ stages:
       containerImageName:       '$(healthserviceImageName)'  # container image name for healthservice
       containerImageDockerFile: '$(healthserviceDockerfile)' # dockerfile used to build the healthservice
 
+  - template: jobs-container-build.yaml
+    parameters:
+      jobName:                  'inventoryservice' # unique pipeline job name
+      containerImageName:       '$(inventoryserviceImageName)'  # container image name for CatalogService
+      containerImageDockerFile: '$(inventoryserviceDockerfile)' # dockerfile used to build the CatalogService
+
+  - template: jobs-container-build.yaml
+    parameters:
+      jobName:                  'orderservice' # unique pipeline job name
+      containerImageName:       '$(orderserviceImageName)'  # container image name for CatalogService
+      containerImageDockerFile: '$(orderserviceDockerfile)' # dockerfile used to build the CatalogService
+
   - template: jobs-ui-app-build.yaml
     parameters:
       jobName:          'buildui'
-      workingDirectory: 'src/app/AlwaysOn.UI/'
+      #workingDirectory: 'src/app/AlwaysOn.UI/'
+      workingDirectory: 'src/app/Costco.ECom.UI'
 
 - stage: deployworkload # Deploy workload to previously created infrastructure
   displayName: 'Deploy Workload'
