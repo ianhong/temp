@@ -1,6 +1,6 @@
-FROM node:17.5.0 as build-env
-WORKDIR /app
+FROM node:17.6.0 as build-env
 
+WORKDIR /app
 COPY . ./
 RUN npm install && \
     npm run build
