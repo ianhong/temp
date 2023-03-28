@@ -42,6 +42,14 @@ variables:
   value: 'AlwaysOn.HealthService/Dockerfile'
 - name: 'healthserviceImageName'
   value: 'alwayson/healthservice'
+- name: 'inventoryserviceDockerfile'
+  value: 'Costco.ECom.API.InventoryAvailability/Dockerfile'
+- name: 'inventoryserviceImageName'
+  value: 'costco/inventoryservice'
+- name: 'orderserviceDockerfile'
+  value: 'Costco.ECom.API.Orders/Dockerfile'
+- name: 'orderserviceImageName'
+  value: 'costco/orderservice'
 
 # Others
 - name: 'smokeTestRetryCount' # How many times a request in the smoke tests is retried before declared as failed (retries HTTP response codes from 400-599 as well as issues like certificate errors)
