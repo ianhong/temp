@@ -138,7 +138,7 @@ foreach ($target in $targets) {
   $responseUi = Invoke-WebRequestWithRetry -Uri https://$targetUiFqdn -Method 'GET' -MaximumRetryCount $smokeTestRetryCount -RetryWaitSeconds $smokeTestRetryWaitSeconds
   $responseUi
 
-  if (!$responseUi.Content.Contains("<title>AlwaysOn Catalog</title>")) { # Check in the HTML content of the response for a known string (the page title in this case)
+  if (!$responseUi.Content.Contains("<title>Costco ECom UI</title>")) { # Check in the HTML content of the response for a known string (the page title in this case)
     throw "*** Web UI for $targetUiFqdn doesn't contain the expected site title."
   }
 }
