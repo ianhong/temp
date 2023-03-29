@@ -37,5 +37,7 @@ jobs:
   - task: PublishPipelineArtifact@1
     displayName: 'Publish built app'
     inputs:
-      targetPath: '${{ parameters.workingDirectory }}/dist'
+    #this path changes - for the default sample app it's /dist
+    # for the costco ui sample app it's /build
+      targetPath: '${{ parameters.workingDirectory }}/build'
       artifactName: 'uiApp'
