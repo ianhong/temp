@@ -255,6 +255,7 @@ stages:
     parameters:
       jobName:          'buildui'
       #workingDirectory: 'src/app/AlwaysOn.UI/'
+      #not working due to issues with /dist folder
       workingDirectory: 'src/app/Costco.ECom.UI/'
 
 - stage: deployworkload # Deploy workload to previously created infrastructure
