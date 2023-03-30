@@ -20,6 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AlwaysOn.CatalogService\AlwaysOn.CatalogService.csproj" />
     <ProjectReference Include="..\AlwaysOn.Shared\AlwaysOn.Shared.csproj" />
+    <ProjectReference Include="..\Costco.ECom.API.InventoryAvailability\Costco.ECom.API.InventoryAvailability.csproj" />
+    <ProjectReference Include="..\Costco.ECom.API.Orders\Costco.ECom.API.Orders.csproj" />
   </ItemGroup>
 
   <ItemGroup>

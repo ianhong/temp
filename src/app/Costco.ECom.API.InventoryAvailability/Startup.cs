@@ -1,29 +1,7 @@
-﻿using Costco.ECom.API.InventoryAvailability.SwaggerHelpers;
-using AlwaysOn.Shared;
-using AlwaysOn.Shared.Interfaces;
-using AlwaysOn.Shared.Services;
-using AlwaysOn.Shared.TelemetryExtensions;
+﻿using AlwaysOn.Shared.TelemetryExtensions;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.ApplicationInsights.Channel;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Costco.ECom.API.InventoryAvailability
 {
@@ -67,7 +45,14 @@ namespace Costco.ECom.API.InventoryAvailability
 
             services.AddSingleton<IDatabaseService, CosmosDbService>();
 
-            services.AddSingleton<IInventoryService, InventoryDbService>();
+            if (Convert.ToBoolean(Configuration["UseStubRepository"]))
+            {
+                services.AddSingleton<IInventoryService>(new InventoryMockService());
+            }
+            else
+            {
+                services.AddSingleton<IInventoryService, InventoryDbService>();
+            }
 
             services.AddSingleton<IRedisCacheService<InventoryItem>, RedisCacheService<InventoryItem>>();
 
