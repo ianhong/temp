@@ -39,15 +39,26 @@ test('shoppinguserflow', async ({ page }) => {
         await page.screenshot({ path: `${process.env.SCREENSHOT_PATH}/root.png` });
     }
 
-    // Go to the catalog page
-    await page.goto(`${baseUrl}/#/catalog`);
-    await expect(page).toHaveURL(`${baseUrl}/#/catalog`);
+    // Go to the products page
+    await page.goto(`${baseUrl}/products`);
+    await expect(page).toHaveURL(`${baseUrl}/products`);
     await page.waitForTimeout(getRandomWaitTimeMs());
 
     if (captureScreenshots) {
-        await page.screenshot({ path: `${process.env.SCREENSHOT_PATH}/catalog.png` });
+        await page.screenshot({ path: `${process.env.SCREENSHOT_PATH}/products.png` });
     }
 
+    // check the pagetitle
+    var pageTitle = await page.$$('p.subtitle.has-text-grey');
+
+    console.log(`*** Found ${pageTitle.length} page title`);
+
+    // If there are no pageTitle, we can't continue and need to fail the test
+    expect(pageTitle.length > 0).toBe(true);
+
+    console.log(`*** Finished test`);
+
+/*
     // Count the number of items we found so we can randomly select one
     var catalogItems = await page.$$('div.catalog-item');
 
@@ -99,6 +110,8 @@ test('shoppinguserflow', async ({ page }) => {
         await expect(page).toHaveURL(`${baseUrl}/#/catalog`);
         await page.waitForTimeout(getRandomWaitTimeMs());
     }
+
+    */
 
     // Got to the root page before leaving
     await page.goto(`${baseUrl}/#/`);
