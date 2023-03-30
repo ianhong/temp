@@ -335,7 +335,7 @@ jobs: # using jobs so they each run in parallel
             echo "*** Retrieved full container image name from artifact - $fullContainerImageName"
 
             # Apply workload InventoryService helm chart
-            echo "*** Deploy workload OrderService to $aksClusterName (in $aksClusterResourceGroup) via helm chart"
+            echo "*** Deploy workload InventoryService to $aksClusterName (in $aksClusterResourceGroup) via helm chart"
             echo "*** Using container image $fullContainerImageName"
 
             # Gather Azure KeyVault name from terraform artifact
@@ -345,7 +345,7 @@ jobs: # using jobs so they each run in parallel
             $allSecretNames = $(az keyvault secret list --vault-name $keyVaultName --query "join(',',[].name)" --output tsv)
             echo "*** Retrieved the names of $($allSecretNames.Split(',').Count) secrets in Key Vault $keyVaultName"
 
-            helm upgrade --install workload-orderservice src/app/charts/inventoryservice `
+            helm upgrade --install workload-inventoryservice src/app/charts/inventoryservice `
                          --namespace "$(workloadNamespace)" `
                          --create-namespace `
                          --set azure.region="$region" `
