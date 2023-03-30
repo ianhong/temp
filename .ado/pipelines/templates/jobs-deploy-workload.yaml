@@ -194,6 +194,170 @@ jobs: # using jobs so they each run in parallel
                          --wait
           }
 
+- job: deploycontainerOrderService
+  displayName: 'Deploy OrderService workload'
+  dependsOn: deploycontainerHealthService
+  steps:
+
+    - download: current # download pipeline artifacts
+
+    - template: steps-buildagent-prerequisites.yaml
+
+    - template: steps-parse-terraform-output.yaml
+      parameters:
+        workingDirectory: '$(Pipeline.Workspace)/terraformOutputGlobalInfra'  # Global infra deploy output directory
+
+
+    - task: AzureCLI@2
+      displayName: 'Install workload OrdersService on AKS clusters'
+      retryCountOnTaskFailure: 2
+      inputs:
+        azureSubscription: $(azureServiceConnection)
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: |
+
+          helm lint src/app/charts/orderservice # lint helm chart
+
+          # load json data from downloaded terraform artifact
+          $releaseUnitInfraDeployOutput = Get-ChildItem $(Pipeline.Workspace)/terraformOutputReleaseUnitInfra/*.json | Get-Content | ConvertFrom-JSON
+
+          # loop through stamps from pipeline artifact json
+          foreach($stamp in $releaseUnitInfraDeployOutput.stamp_properties.value) {
+            echo "**************************** REGION: $($stamp.location) ****************************"
+
+            $aksClusterName = $stamp.aks_cluster_name
+            $aksClusterResourceGroup = $stamp.resource_group_name
+            $identityClientId = $stamp.catalogservice_managed_identity_client_id
+            $tenantId = $(az account show --query "tenantId" --output tsv)
+
+            # We are using the list-locations command to retrieve the display name of the region as this is needed for the Cosmos DB SDK's ApplicationRegion parameter
+            $region = $(az account list-locations --query "[?name == '$($stamp.location)'].displayName" -o tsv)
+            echo "*** Using Azure Region display name $region"
+
+            # Load AKS credentials using --admin to bypass RBAC and interactive logins
+            echo "*** Load credentials for AKS Cluster $aksClusterName in $aksClusterResourceGroup"
+            az aks get-credentials --name $aksClusterName `
+                                   --resource-group $aksClusterResourceGroup `
+                                   --overwrite-existing --admin
+
+            $fqdn = $stamp.aks_cluster_ingress_fqdn
+            echo "*** Retrieved Ingress Controller FQDN $fqdn for AKS cluster $aksClusterName"
+
+            # We are using a wildcard hostname match for nginx (and thus getting a wildcard cert from Let's Encrypt)
+            # Therefore we replace the first part of the FQDN with a '*': "foo.bar.example.com" --> "*.bar.example.com"
+            $wildcardDomain = $fqdn -replace '^[^.]*','*'
+            echo "*** Using wildcard domain name $wildcardDomain"
+
+            $fullContainerImageName = Get-Content -Path "$(Pipeline.Workspace)/catalogservice-containerImageName/orderservice.txt"
+            echo "*** Retrieved full container image name from artifact - $fullContainerImageName"
+
+            # Apply workload CatalogService helm chart
+            echo "*** Deploy workload OrderService to $aksClusterName (in $aksClusterResourceGroup) via helm chart"
+            echo "*** Using container image $fullContainerImageName"
+
+            # Gather Azure KeyVault name from terraform artifact
+            $keyVaultName = $stamp.key_vault_name
+            echo "*** Retrieved Key Vault name $keyVaultName"
+
+            $allSecretNames = $(az keyvault secret list --vault-name $keyVaultName --query "join(',',[].name)" --output tsv)
+            echo "*** Retrieved the names of $($allSecretNames.Split(',').Count) secrets in Key Vault $keyVaultName"
+
+            helm upgrade --install workload-orderservice src/app/charts/orderservice `
+                         --namespace "$(workloadNamespace)" `
+                         --create-namespace `
+                         --set azure.region="$region" `
+                         --set containerimage="$fullContainerImageName" `
+                         --set workload.domainname="$wildcardDomain" `
+                         --set identity.clientid="$identityClientId" `
+                         --set azure.tenantId=$tenantId `
+                         --set azure.keyVaultName="$keyVaultName" `
+                         --set kvSecrets="{$allSecretNames}" `
+                         --wait
+          }
+
+- job: deploycontainerInventoryService
+  displayName: 'Deploy InventoryService workload'
+  dependsOn: deploycontainerHealthService
+  steps:
+
+    - download: current # download pipeline artifacts
+
+    - template: steps-buildagent-prerequisites.yaml
+
+    - template: steps-parse-terraform-output.yaml
+      parameters:
+        workingDirectory: '$(Pipeline.Workspace)/terraformOutputGlobalInfra'  # Global infra deploy output directory
+
+
+    - task: AzureCLI@2
+      displayName: 'Install workload OrdersService on AKS clusters'
+      retryCountOnTaskFailure: 2
+      inputs:
+        azureSubscription: $(azureServiceConnection)
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: |
+
+          helm lint src/app/charts/invntoryservice # lint helm chart
+
+          # load json data from downloaded terraform artifact
+          $releaseUnitInfraDeployOutput = Get-ChildItem $(Pipeline.Workspace)/terraformOutputReleaseUnitInfra/*.json | Get-Content | ConvertFrom-JSON
+
+          # loop through stamps from pipeline artifact json
+          foreach($stamp in $releaseUnitInfraDeployOutput.stamp_properties.value) {
+            echo "**************************** REGION: $($stamp.location) ****************************"
+
+            $aksClusterName = $stamp.aks_cluster_name
+            $aksClusterResourceGroup = $stamp.resource_group_name
+            $identityClientId = $stamp.catalogservice_managed_identity_client_id
+            $tenantId = $(az account show --query "tenantId" --output tsv)
+
+            # We are using the list-locations command to retrieve the display name of the region as this is needed for the Cosmos DB SDK's ApplicationRegion parameter
+            $region = $(az account list-locations --query "[?name == '$($stamp.location)'].displayName" -o tsv)
+            echo "*** Using Azure Region display name $region"
+
+            # Load AKS credentials using --admin to bypass RBAC and interactive logins
+            echo "*** Load credentials for AKS Cluster $aksClusterName in $aksClusterResourceGroup"
+            az aks get-credentials --name $aksClusterName `
+                                   --resource-group $aksClusterResourceGroup `
+                                   --overwrite-existing --admin
+
+            $fqdn = $stamp.aks_cluster_ingress_fqdn
+            echo "*** Retrieved Ingress Controller FQDN $fqdn for AKS cluster $aksClusterName"
+
+            # We are using a wildcard hostname match for nginx (and thus getting a wildcard cert from Let's Encrypt)
+            # Therefore we replace the first part of the FQDN with a '*': "foo.bar.example.com" --> "*.bar.example.com"
+            $wildcardDomain = $fqdn -replace '^[^.]*','*'
+            echo "*** Using wildcard domain name $wildcardDomain"
+
+            $fullContainerImageName = Get-Content -Path "$(Pipeline.Workspace)/catalogservice-containerImageName/inventoryservice.txt"
+            echo "*** Retrieved full container image name from artifact - $fullContainerImageName"
+
+            # Apply workload CatalogService helm chart
+            echo "*** Deploy workload OrderService to $aksClusterName (in $aksClusterResourceGroup) via helm chart"
+            echo "*** Using container image $fullContainerImageName"
+
+            # Gather Azure KeyVault name from terraform artifact
+            $keyVaultName = $stamp.key_vault_name
+            echo "*** Retrieved Key Vault name $keyVaultName"
+
+            $allSecretNames = $(az keyvault secret list --vault-name $keyVaultName --query "join(',',[].name)" --output tsv)
+            echo "*** Retrieved the names of $($allSecretNames.Split(',').Count) secrets in Key Vault $keyVaultName"
+
+            helm upgrade --install workload-orderservice src/app/charts/inventoryservice `
+                         --namespace "$(workloadNamespace)" `
+                         --create-namespace `
+                         --set azure.region="$region" `
+                         --set containerimage="$fullContainerImageName" `
+                         --set workload.domainname="$wildcardDomain" `
+                         --set identity.clientid="$identityClientId" `
+                         --set azure.tenantId=$tenantId `
+                         --set azure.keyVaultName="$keyVaultName" `
+                         --set kvSecrets="{$allSecretNames}" `
+                         --wait
+          }
+
 - job: deploycontainerBackgroundProcessor
   displayName: 'Deploy BackgroundProcessor workload'
   dependsOn: deploycontainerHealthService
