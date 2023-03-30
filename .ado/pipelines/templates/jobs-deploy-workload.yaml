@@ -299,7 +299,7 @@ jobs: # using jobs so they each run in parallel
         scriptLocation: inlineScript
         inlineScript: |
 
-          helm lint src/app/charts/invntoryservice # lint helm chart
+          helm lint src/app/charts/inventoryservice # lint helm chart
 
           # load json data from downloaded terraform artifact
           $releaseUnitInfraDeployOutput = Get-ChildItem $(Pipeline.Workspace)/terraformOutputReleaseUnitInfra/*.json | Get-Content | ConvertFrom-JSON
