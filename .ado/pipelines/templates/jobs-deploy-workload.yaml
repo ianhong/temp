@@ -249,10 +249,10 @@ jobs: # using jobs so they each run in parallel
             $wildcardDomain = $fqdn -replace '^[^.]*','*'
             echo "*** Using wildcard domain name $wildcardDomain"
 
-            $fullContainerImageName = Get-Content -Path "$(Pipeline.Workspace)/catalogservice-containerImageName/orderservice.txt"
+            $fullContainerImageName = Get-Content -Path "$(Pipeline.Workspace)/orderservice-containerImageName/orderservice.txt"
             echo "*** Retrieved full container image name from artifact - $fullContainerImageName"
 
-            # Apply workload CatalogService helm chart
+            # Apply workload OrderService helm chart
             echo "*** Deploy workload OrderService to $aksClusterName (in $aksClusterResourceGroup) via helm chart"
             echo "*** Using container image $fullContainerImageName"
 
@@ -291,7 +291,7 @@ jobs: # using jobs so they each run in parallel
 
 
     - task: AzureCLI@2
-      displayName: 'Install workload OrdersService on AKS clusters'
+      displayName: 'Install workload InventoryService on AKS clusters'
       retryCountOnTaskFailure: 2
       inputs:
         azureSubscription: $(azureServiceConnection)
@@ -331,10 +331,10 @@ jobs: # using jobs so they each run in parallel
             $wildcardDomain = $fqdn -replace '^[^.]*','*'
             echo "*** Using wildcard domain name $wildcardDomain"
 
-            $fullContainerImageName = Get-Content -Path "$(Pipeline.Workspace)/catalogservice-containerImageName/inventoryservice.txt"
+            $fullContainerImageName = Get-Content -Path "$(Pipeline.Workspace)/inventoryservice-containerImageName/inventoryservice.txt"
             echo "*** Retrieved full container image name from artifact - $fullContainerImageName"
 
-            # Apply workload CatalogService helm chart
+            # Apply workload InventoryService helm chart
             echo "*** Deploy workload OrderService to $aksClusterName (in $aksClusterResourceGroup) via helm chart"
             echo "*** Using container image $fullContainerImageName"
 
