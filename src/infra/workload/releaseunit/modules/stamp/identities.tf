@@ -53,6 +53,42 @@ resource "azurerm_federated_identity_credential" "healthservice" {
   subject             = "system:serviceaccount:workload:healthservice-identity"
 }
 
+# managed identity used for orderhservice
+resource "azurerm_user_assigned_identity" "orderservice" {
+  # temporary workaround while the creation of federated identity credentials is not supported on user-assigned managed identities in some regions
+  # https://learn.microsoft.com/azure/active-directory/develop/workload-identity-federation-considerations#unsupported-regions-user-assigned-managed-identities
+  location            = contains(local.unsupported_regions, azurerm_resource_group.stamp.location) ? "westeurope" : azurerm_resource_group.stamp.location
+  name                = "orderservice"
+  resource_group_name = azurerm_resource_group.stamp.name
+}
+
+resource "azurerm_federated_identity_credential" "orderservice" {
+  name                = azurerm_user_assigned_identity.orderservice.name
+  resource_group_name = azurerm_resource_group.stamp.name
+  audience            = ["api://AzureADTokenExchange"]
+  issuer              = azurerm_kubernetes_cluster.stamp.oidc_issuer_url
+  parent_id           = azurerm_user_assigned_identity.orderservice.id
+  subject             = "system:serviceaccount:workload:orderservice-identity"
+}
+
+# managed identity used for orderhservice
+resource "azurerm_user_assigned_identity" "inventoryservice" {
+  # temporary workaround while the creation of federated identity credentials is not supported on user-assigned managed identities in some regions
+  # https://learn.microsoft.com/azure/active-directory/develop/workload-identity-federation-considerations#unsupported-regions-user-assigned-managed-identities
+  location            = contains(local.unsupported_regions, azurerm_resource_group.stamp.location) ? "westeurope" : azurerm_resource_group.stamp.location
+  name                = "inventoryservice"
+  resource_group_name = azurerm_resource_group.stamp.name
+}
+
+resource "azurerm_federated_identity_credential" "inventoryservice" {
+  name                = azurerm_user_assigned_identity.inventoryservice.name
+  resource_group_name = azurerm_resource_group.stamp.name
+  audience            = ["api://AzureADTokenExchange"]
+  issuer              = azurerm_kubernetes_cluster.stamp.oidc_issuer_url
+  parent_id           = azurerm_user_assigned_identity.inventoryservice.id
+  subject             = "system:serviceaccount:workload:inventoryservice-identity"
+}
+
 # managed identity used for backgroundprocessor
 resource "azurerm_user_assigned_identity" "backgroundprocessor" {
   # temporary workaround while the creation of federated identity credentials is not supported on user-assigned managed identities in some regions
