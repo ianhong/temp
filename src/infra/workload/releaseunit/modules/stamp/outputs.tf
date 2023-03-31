@@ -78,7 +78,7 @@ output "orderservice_managed_identity_client_id" {
 
 # client_id of the inventoryservice managed identity
 output "inventoryservice_managed_identity_client_id" {
-  value = azurerm_user_assigned_identity.nnventoryservice.client_id
+  value = azurerm_user_assigned_identity.inventoryservice.client_id
 }
 
 # client_id of the healthservice managed identity
