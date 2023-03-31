@@ -203,6 +203,8 @@ resource "azurerm_cdn_frontdoor_route" "backendapi" {
 
   patterns_to_match = [
     "/catalogservice/*",
+    "/orderservice/*",
+    "/inventoryservice/*",
     "/healthservice/*"
   ]
 
