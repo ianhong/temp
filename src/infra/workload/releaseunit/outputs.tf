@@ -16,6 +16,8 @@ output "stamp_properties" {
     storage_web_host                               = instance.public_storage_static_web_host
     catalogservice_managed_identity_client_id      = instance.catalogservice_managed_identity_client_id
     healthservice_managed_identity_client_id       = instance.healthservice_managed_identity_client_id
+    orderservice_managed_identity_client_id        = instance.orderservice_managed_identity_client_id
+    inventoryservice_managed_identity_client_id    = instance.inventoryservice_managed_identity_client_id
     backgroundprocessor_managed_identity_client_id = instance.backgroundprocessor_managed_identity_client_id
   }]
 }
