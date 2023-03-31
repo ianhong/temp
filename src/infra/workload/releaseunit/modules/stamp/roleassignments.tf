@@ -53,6 +53,15 @@ resource "azurerm_cosmosdb_sql_role_assignment" "healthservice_contributor" {
   scope               = data.azurerm_cosmosdb_account.global.id
 }
 
+# cosmosdb role assignment for orderservice identity
+resource "azurerm_cosmosdb_sql_role_assignment" "orderservice_contributor" {
+  resource_group_name = var.global_resource_group_name
+  account_name        = data.azurerm_cosmosdb_account.global.name
+  role_definition_id  = data.azurerm_cosmosdb_sql_role_definition.builtin_data_contributor.id
+  principal_id        = azurerm_user_assigned_identity.orderservice.principal_id
+  scope               = data.azurerm_cosmosdb_account.global.id
+}
+
 # cosmosdb role assignment for backgroundprocessor identity
 resource "azurerm_cosmosdb_sql_role_assignment" "backgroundprocessor_contributor" {
   resource_group_name = var.global_resource_group_name
