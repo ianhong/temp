@@ -53,7 +53,7 @@ resource "azurerm_federated_identity_credential" "healthservice" {
   subject             = "system:serviceaccount:workload:healthservice-identity"
 }
 
-# managed identity used for orderhservice
+# managed identity used for orderservice
 resource "azurerm_user_assigned_identity" "orderservice" {
   # temporary workaround while the creation of federated identity credentials is not supported on user-assigned managed identities in some regions
   # https://learn.microsoft.com/azure/active-directory/develop/workload-identity-federation-considerations#unsupported-regions-user-assigned-managed-identities
@@ -71,7 +71,7 @@ resource "azurerm_federated_identity_credential" "orderservice" {
   subject             = "system:serviceaccount:workload:orderservice-identity"
 }
 
-# managed identity used for orderhservice
+# managed identity used for inventoryservice
 resource "azurerm_user_assigned_identity" "inventoryservice" {
   # temporary workaround while the creation of federated identity credentials is not supported on user-assigned managed identities in some regions
   # https://learn.microsoft.com/azure/active-directory/develop/workload-identity-federation-considerations#unsupported-regions-user-assigned-managed-identities
