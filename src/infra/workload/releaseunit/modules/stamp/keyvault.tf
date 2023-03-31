@@ -61,6 +61,30 @@ resource "azurerm_key_vault_access_policy" "backgroundprocessor" {
   ]
 }
 
+# Give KV secret read permissions to the orderservice for CSI driver access
+resource "azurerm_key_vault_access_policy" "orderservice" {
+  key_vault_id = azurerm_key_vault.stamp.id
+
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = azurerm_user_assigned_identity.orderservice.principal_id
+
+  secret_permissions = [
+    "Get", "List"
+  ]
+}
+
+# Give KV secret read permissions to the inventoryservice for CSI driver access
+resource "azurerm_key_vault_access_policy" "inventoryservice" {
+  key_vault_id = azurerm_key_vault.stamp.id
+
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = azurerm_user_assigned_identity.inventoryservice.principal_id
+
+  secret_permissions = [
+    "Get", "List"
+  ]
+}
+
 ####################################### DIAGNOSTIC SETTINGS #######################################
 
 # Use this data source to fetch all available log and metrics categories. We then enable all of them
