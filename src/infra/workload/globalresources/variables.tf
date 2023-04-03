@@ -128,10 +128,10 @@ variable "backends_StaticStorage" {
 # Redis cache settings
 variable "redis_cache" {
   description = "Azure sku for redis enterprise cache install"
-  type        = map(object({
+  type        = object({
     sku         = string
     family      = string
     capacity    = number
-  }))
+  })
   default = {}
 }
