@@ -133,9 +133,5 @@ variable "redis_cache" {
     family      = string
     capacity    = number
   }))
-  default     = {
-    sku = "Standard"
-    family = "C"
-    capacity = 2
-  }
+  default = {}
 }
