@@ -23,6 +23,9 @@ locals {
     "CosmosDb-DatabaseName"                      = var.cosmosdb_database_name
     "Api-Key"                                    = var.api_key
     "LogAnalytics-WorkspaceId"                   = data.azurerm_log_analytics_workspace.stamp.workspace_id
+    "Redis-Key"                                  = data.azurerm_redis_cache.global.primary_access_key
+    "Redis-Port-Number"                          = "10000"
+    "Redis-Host-Name"                            = data.azurerm_redis_cache.global.hostname
   }
 }
 

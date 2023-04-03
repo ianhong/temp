@@ -110,6 +110,7 @@ variable "backends_BackendApis" {
   # }]
 }
 
+
 variable "backends_StaticStorage" {
   type = list(object({
     address = string
@@ -122,4 +123,19 @@ variable "backends_StaticStorage" {
   #   weight  = 1
   #   enabled = true
   # }]
+}
+
+# Redis cache settings
+variable "redis_cache" {
+  description = "Azure sku for redis enterprise cache install"
+  type        = map({
+    sku         = string
+    family      = string
+    capacity    = number
+  })
+  default     = {
+    sku = "Standard"
+    family = "C"
+    capacity = 2
+  }
 }

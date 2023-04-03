@@ -240,3 +240,39 @@ resource "azurerm_private_endpoint" "table_storage" {
     ]
   }
 }
+
+#### Private Endpoint related resources for Redis
+resource "azurerm_private_dns_zone" "redis" {
+  name                = "privatelink.redis.cache.windows.net"
+  resource_group_name = azurerm_resource_group.stamp.name
+
+  tags = var.default_tags
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "redis" {
+  name                  = "redis-private-dns-link"
+  resource_group_name   = azurerm_resource_group.stamp.name
+  private_dns_zone_name = azurerm_private_dns_zone.redis.name
+  virtual_network_id    = data.azurerm_virtual_network.stamp.id
+}
+
+resource "azurerm_private_endpoint" "redis" {
+  name                = "${local.prefix}-${var.location}-redis-pe"
+  location            = azurerm_resource_group.stamp.location
+  resource_group_name = azurerm_resource_group.stamp.name
+  subnet_id           = azurerm_subnet.private_endpoints.id
+
+  private_dns_zone_group {
+    name                 = "privatednsredis"
+    private_dns_zone_ids = [azurerm_private_dns_zone.redis.id]
+  }
+
+  private_service_connection {
+    name                           = "redis-privateserviceconnection"
+    private_connection_resource_id = data.azurerm_redis_cache.global.id
+    is_manual_connection           = false
+    subresource_names              = ["redisCache""]
+  }
+
+  tags = var.default_tags
+}
