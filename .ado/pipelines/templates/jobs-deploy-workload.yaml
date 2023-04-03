@@ -312,7 +312,7 @@ jobs: # using jobs so they each run in parallel
 
             $aksClusterName = $stamp.aks_cluster_name
             $aksClusterResourceGroup = $stamp.resource_group_name
-            $identityClientId = $stamp.identityservice_managed_identity_client_id
+            $identityClientId = $stamp.inventoryservice_managed_identity_client_id
             $tenantId = $(az account show --query "tenantId" --output tsv)
 
             # We are using the list-locations command to retrieve the display name of the region as this is needed for the Cosmos DB SDK's ApplicationRegion parameter
