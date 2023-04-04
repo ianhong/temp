@@ -196,10 +196,10 @@ stages:
                                     -var=frontdoor_resource_id="$(frontdoor_resource_id)"
                                     -var=frontdoor_name="$(frontdoor_name)"
                                     -var=global_storage_account_name="$(global_storage_account_name)"
-                                    -var=azure_monitor_action_group_resource_id="$(azure_monitor_action_group_resource_id)"
-                                    -var custom_dns_zone_resourcegroup_name=$(envDnsZoneRG) -var custom_dns_zone=$(envDomainName)'
                                     -var=redis_cache_hostname="$(redis_cache_hostname)"
                                     -var=redis_cache_id="$(redis_cache_id)"
+                                    -var=azure_monitor_action_group_resource_id="$(azure_monitor_action_group_resource_id)"
+                                    -var custom_dns_zone_resourcegroup_name=$(envDnsZoneRG) -var custom_dns_zone=$(envDomainName)''
 
 - stage: deployconfiguration
   displayName: 'Deploy Configuration' # Apply configuration to Azure Infrastructure
