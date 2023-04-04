@@ -45,8 +45,8 @@ output "azure_monitor_action_group_resource_id" {
   value = azurerm_monitor_action_group.main.id
 }
 
-output "redis_cache_hostname" {
-	value = azurerm_redis_cache.global.hostname
+output "redis_cache_name" {
+	value = azurerm_redis_cache.global.name
 }
 
 output "redis_cache_id" {
