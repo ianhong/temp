@@ -34,6 +34,11 @@ data "azurerm_storage_account" "global" {
   resource_group_name = var.global_resource_group_name
 }
 
+data "azurerm_redis_cache" "global" {
+  name                = var.redis_cache_hostname
+  resource_group_name = var.global_resource_group_name
+}
+
 data "azurerm_resource_group" "buildagent" {
   name = "${var.prefix}-buildinfra-rg"
 }

@@ -18,8 +18,8 @@ module "stamp" {
   cosmosdb_account_name          = var.cosmosdb_account_name
   cosmosdb_database_name         = var.cosmosdb_database_name
   global_storage_account_name    = var.global_storage_account_name
-  redis_cache_hostname			= var.redis_cache_hostname
-  redis_cache_id				= var.redis_cache_id
+  redis_cache_name			          = var.redis_cache_name
+  redis_cache_id				          = var.redis_cache_id
 
   azure_monitor_action_group_resource_id = var.azure_monitor_action_group_resource_id
   acr_name                               = var.acr_name

@@ -177,8 +177,8 @@ variable "ai_adaptive_sampling" {
   default     = true
 }
 
-variable "redis_cache_hostname" {
-  description = "Global hostname for Redis Cache Service."
+variable "redis_cache_name" {
+  description = "Global name for Redis Cache Service."
   type        = string
 }
 
