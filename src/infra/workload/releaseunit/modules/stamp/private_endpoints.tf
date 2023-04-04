@@ -271,7 +271,7 @@ resource "azurerm_private_endpoint" "redis" {
     name                           = "redis-privateserviceconnection"
     private_connection_resource_id = data.azurerm_redis_cache.global.id
     is_manual_connection           = false
-    subresource_names              = ["redisCache""]
+    subresource_names              = ["redisCache"]
   }
 
   tags = var.default_tags
