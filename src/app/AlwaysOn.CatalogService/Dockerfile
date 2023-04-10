@@ -8,10 +8,8 @@ RUN dotnet publish AlwaysOn.CatalogService -c Release -o AlwaysOn.CatalogService
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine 
 
 # Update and upgrade
-#RUN apt-get update && apt-get upgrade -y \
- #   && rm -rf /var/lib/apt/lists/*
-RUN rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update && apt-get upgrade -y \
+   && rm -rf /var/lib/apt/lists/*
 
 # Create a new user group and user to run the workload as non-root
 RUN groupadd -r workload && useradd --no-log-init -r -g workload workload
