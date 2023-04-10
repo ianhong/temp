@@ -141,4 +141,17 @@ foreach ($target in $targets) {
   if (!$responseUi.Content.Contains("<title>Costco ECom UI</title>")) { # Check in the HTML content of the response for a known string (the page title in this case)
     throw "*** Web UI for $targetUiFqdn doesn't contain the expected site title."
   }
+
+  $listInventoryUrl = "https://$targetFqdn/inventoryservice/inventoryservice/api/1.0/Inventory?limit=100"
+  Write-Output "*** Call - List Inventory Items ($mode)"
+  $responseListInventory = Invoke-WebRequestWithRetry -Uri $listInventoryUrl -Method 'get' -Headers $header -MaximumRetryCount $smokeTestRetryCount -RetryWaitSeconds $smokeTestRetryWaitSeconds
+  $responseListInventory
+
+  $allInventoryItems = $responseListInventory.Content | ConvertFrom-JSON
+
+  if ($allInventoryItems.Count -eq 0) {
+    throw "*** No items found in inventory service"
+  }
+
+  $randomItem = Get-Random $allInventoryItems
 }
