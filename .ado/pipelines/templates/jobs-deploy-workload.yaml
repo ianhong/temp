@@ -463,6 +463,8 @@ jobs: # using jobs so they each run in parallel
             # warning: make sure that these variable names are in sync with client code
             Add-Content -Path $configFilePath -Value "window.API_URL = `"/catalogservice/api`""
             Add-Content -Path $configFilePath -Value "window.APPLICATIONINSIGHTS_CONNECTION_STRING = `"$appInsightsConnString`""
+            Add-Content -Path $configFilePath -Value "window.INVENTORY_API_URL = `"/inventoryservice/inventoryservice/api`""
+            Add-Content -Path $configFilePath -Value "window.ORDER_API_URL = `"/orderservice/orderservice/api`""
 
             $versionLabel = "$(riVariant)-$("$(Build.SourceBranch)" -Replace 'refs/heads/', '')-$(Build.BuildId)"
             echo "*** DEBUG: Setting VERSION_LABEL to $versionLabel"

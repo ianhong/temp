@@ -1,6 +1,8 @@
 FROM node:18-alpine as build-env
 WORKDIR /app
 
+ENV ASPNETCORE_ENVIRONMENT=Development
+
 COPY . ./
 RUN npm install && \
     npm run build
