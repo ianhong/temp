@@ -35,7 +35,7 @@ data "azurerm_storage_account" "global" {
 }
 
 data "azurerm_redis_cache" "global" {
-  name                = var.redis_cache_hostname
+  name                = var.redis_cache_name
   resource_group_name = var.global_resource_group_name
 }
 
