@@ -65,7 +65,7 @@ namespace Costco.ECom.API.Orders
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AlwaysOn CatalogService API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AlwaysOn OrderService API", Version = "v1" });
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -87,7 +87,7 @@ namespace Costco.ECom.API.Orders
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UsePathBase("/catalogservice");
+            app.UsePathBase("/orderservice");
 
             if (env.IsDevelopment())
             {
