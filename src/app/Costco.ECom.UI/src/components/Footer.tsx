@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="content has-text-centered has-text-grey">
-                <p>{CONSTANTS.APP_NAME} {new Date().getFullYear()}</p>
+                <p>&copy 1998 - {new Date().getFullYear()} Costco Wholesale, Inc. All rights reserved.</p>
             </div>
         </footer>
     )
