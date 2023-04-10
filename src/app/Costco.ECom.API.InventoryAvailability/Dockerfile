@@ -6,9 +6,11 @@ RUN dotnet publish Costco.ECom.API.InventoryAvailability -c Release -o Costco.EC
 
 # Create application container
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine
+
 # Update and upgrade
-RUN apt-get update && apt-get upgrade -y \
-    && rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && apt-get upgrade -y \
+ #   && rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /tmp/appinsightschannel
 
