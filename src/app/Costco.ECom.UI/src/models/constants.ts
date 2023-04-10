@@ -1,5 +1,5 @@
 export const CONSTANTS = {
-    APP_NAME: 'Costco ECom',
+    APP_NAME: 'Costco Digital Modernization',
     LOCAL_STORAGE: {
         CART_ITEM: 'CART_ITEM'
     }
