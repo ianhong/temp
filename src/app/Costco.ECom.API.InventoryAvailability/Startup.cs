@@ -54,13 +54,12 @@ namespace Costco.ECom.API.InventoryAvailability
                 services.AddSingleton<IInventoryService, InventoryDbService>();
             }
 
-            services.AddSingleton<IConnectionMultiplexer>(sp => ConnectionMultiplexer.Connect(new ConfigurationOptions
+            services.AddSingleton<ConnectionMultiplexer>(sp => ConnectionMultiplexer.Connect(new ConfigurationOptions
             {
                 EndPoints = { $"{Configuration.GetValue<string>("REDIS_HOST_NAME")}:{Configuration.GetValue<int>("REDIS_PORT_NUMBER")}" },
                 Ssl = true,
                 AbortOnConnectFail = false,
                 Password = Configuration.GetValue<string>("REDIS_KEY")
-
             }));
 
             services.AddSingleton<IRedisCacheService<InventoryItem>, RedisCacheService<InventoryItem>>();
@@ -106,16 +105,14 @@ namespace Costco.ECom.API.InventoryAvailability
         {
             app.UsePathBase("/inventoryservice");
 
-            /*
             if (env.IsDevelopment())
             {
-            */
                 app.UseDeveloperExceptionPage();
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
 
                 // Production CatalogService API will run on the same domain as the UI, but for local development, CORS needs to be enabled.
                 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-           // }
+            }
 
             var sysConfig = app.ApplicationServices.GetService<SysConfiguration>();
 

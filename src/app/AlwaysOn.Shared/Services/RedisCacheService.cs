@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="RedisCacheService.cs" company="Costco Wholesale">
+// Copyright (c) Costco Wholesale. All rights reserved.
+// </copyright>
+// ----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;

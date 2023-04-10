@@ -1,9 +1,8 @@
-using AlwaysOn.Shared;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+// <copyright file="Program.cs" company="Costco Wholesale">
+// Copyright (c) Costco Wholesale. All rights reserved.
+// </copyright>
+// ----------------------------------------------------------------------
 using Serilog;
-using System;
 
 namespace Costco.ECom.API.InventoryAvailability
 {
