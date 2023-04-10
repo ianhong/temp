@@ -54,10 +54,6 @@ namespace Costco.ECom.API.InventoryAvailability
                 services.AddSingleton<IInventoryService, InventoryDbService>();
             }
 
-            services.AddSingleton<IRedisCacheService<InventoryItem>, RedisCacheService<InventoryItem>>();
-
-            services.AddSingleton<IMessageProducerService, ServiceBusProducerService>();
-
             services.AddSingleton<IConnectionMultiplexer>(sp => ConnectionMultiplexer.Connect(new ConfigurationOptions
             {
                 EndPoints = { $"{Configuration.GetValue<string>("REDIS_HOST_NAME")}:{Configuration.GetValue<int>("REDIS_PORT_NUMBER")}" },
@@ -66,6 +62,10 @@ namespace Costco.ECom.API.InventoryAvailability
                 Password = Configuration.GetValue<string>("REDIS_KEY")
 
             }));
+
+            services.AddSingleton<IRedisCacheService<InventoryItem>, RedisCacheService<InventoryItem>>();
+
+            services.AddSingleton<IMessageProducerService, ServiceBusProducerService>();
 
             services.AddControllers().AddJsonOptions(options =>
             {
@@ -76,7 +76,7 @@ namespace Costco.ECom.API.InventoryAvailability
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AlwaysOn CatalogService API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AlwaysOn InventoryService API", Version = "v1" });
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -104,16 +104,18 @@ namespace Costco.ECom.API.InventoryAvailability
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UsePathBase("/catalogservice");
+            app.UsePathBase("/inventoryservice");
 
+            /*
             if (env.IsDevelopment())
             {
+            */
                 app.UseDeveloperExceptionPage();
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
 
                 // Production CatalogService API will run on the same domain as the UI, but for local development, CORS needs to be enabled.
                 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-            }
+           // }
 
             var sysConfig = app.ApplicationServices.GetService<SysConfiguration>();
 
@@ -125,7 +127,7 @@ namespace Costco.ECom.API.InventoryAvailability
                 // specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("v1/swagger.json", "AlwaysOn CatalogService");
+                    c.SwaggerEndpoint("v1/swagger.json", "AlwaysOn Inventoryervice");
                 });
             }
 
