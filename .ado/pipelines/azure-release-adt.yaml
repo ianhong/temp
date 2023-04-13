@@ -25,6 +25,8 @@ parameters:
 variables:
 - name:  'environment' # set the environment name as variable
   value: 'adt'
+synopsys_project_name: 'DigAPB'
+
 
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - name:  'workingDirectory'    # Terraform root working directory
@@ -42,3 +44,10 @@ stages:
     destroyOldEnvironment: ${{ parameters.destroyEnvironment }}
     trafficSwitchSteps:
     - 100
+
+- task: SynopsysDetectTask@8
+  inputs:
+    BlackDuckService: 'Synopsys SBOM Prod'
+    DetectArguments: '--detect.project.name=$(synopsys_project_name) --detect.project.version.name=$(Build.SourceBranchName)'
+    DetectVersion: 'latest'
+    AddTaskSummary: true
