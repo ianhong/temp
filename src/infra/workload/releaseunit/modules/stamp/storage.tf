@@ -9,8 +9,10 @@ resource "azurerm_storage_account" "public" {
   min_tls_version          = "TLS1_2"
 
   # Enable static website hosting. We will use that to host our UI app
+  # we have to add the index.html as a 404 page to deal with nginx/react refresh issues
   static_website {
     index_document = "index.html"
+    error_404_document = "index.html"
   }
 
   tags = var.default_tags
