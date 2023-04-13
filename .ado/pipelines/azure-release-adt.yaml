@@ -45,9 +45,14 @@ stages:
     trafficSwitchSteps:
     - 100
 
-- task: SynopsysDetectTask@8
-  inputs:
-    BlackDuckService: 'Synopsys SBOM Prod'
-    DetectArguments: '--detect.project.name=$(synopsys_project_name) --detect.project.version.name=$(Build.SourceBranchName)'
-    DetectVersion: 'latest'
-    AddTaskSummary: true
+- stage: Synopsys_Scanning
+  jobs:
+  - job: Synopsys
+    steps: 
+
+      - task: SynopsysDetectTask@8
+        inputs:
+          BlackDuckService: 'Synopsys SBOM Prod'
+          DetectArguments: '--detect.project.name=$(synopsys_project_name) --detect.project.version.name=$(Build.SourceBranchName)'
+          DetectVersion: 'latest'
+          AddTaskSummary: true
