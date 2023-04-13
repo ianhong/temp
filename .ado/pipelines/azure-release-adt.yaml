@@ -46,6 +46,7 @@ stages:
     - 100
 
 - stage: Synopsys_Scanning
+  condition: always()
   jobs:
   - job: Synopsys
     steps: 
