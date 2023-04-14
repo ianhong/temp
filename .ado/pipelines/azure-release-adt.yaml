@@ -50,7 +50,14 @@ stages:
   jobs:
   - job: Synopsys
     steps: 
-
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'LocalDirectory'
+          jdkFile: '/usr/lib/jvm/java-8-openjdk-amd64'
+          cleanDestinationDirectory: false
+          
       - task: SynopsysDetectTask@8
         inputs:
           BlackDuckService: 'Synopsys SBOM Prod'
