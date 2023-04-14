@@ -51,6 +51,12 @@ stages:
   - job: Synopsys
     steps: 
 
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '17'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
       - task: SynopsysDetectTask@8
         inputs:
           BlackDuckService: 'Synopsys SBOM Prod'
