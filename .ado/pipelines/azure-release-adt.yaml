@@ -79,6 +79,6 @@ stages:
       - task: SynopsysDetectTask@8
         inputs:
           BlackDuckService: 'Synopsys SBOM Prod'
-          DetectArguments: '--detect.project.name=$(synopsys_project_name) --detect.project.version.name=$(Build.SourceBranchName)  --detect.detector.search.depth=3 --detect.accuracy.required=LOW'
+          DetectArguments: '--detect.project.name=$(synopsys_project_name) --detect.project.version.name=$(Build.SourceBranchName)  --detect.detector.search.depth=3 --detect.accuracy.required=NPM'
           DetectVersion: 'latest'
           AddTaskSummary: true
