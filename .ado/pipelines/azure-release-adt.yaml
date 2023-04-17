@@ -41,9 +41,9 @@ variables:
 - name:  'azureServiceConnection' # environment specific service connection
   value: 'az-np-svc-609-DigAPB-ADT'
 - name: 'environment'
-  value: $(parameters.environment)
+  value: 'adt'
 
-- template: config/variables-values-${{ variables.environment }}.yaml # contains environment-specific values (non-secret)
+- template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
 
 stages:
 
