@@ -65,9 +65,7 @@ stages:
         inputs:
           versionSpec: '11'
           jdkArchitectureOption: 'x64'
-          jdkSourceOption: 'LocalDirectory'
-          jdkFile: '/usr/lib/jvm/default-java'
-          cleanDestinationDirectory: false
+          jdkSourceOption: 'PreInstalled'
           
       - task: SynopsysDetectTask@8
         inputs:
