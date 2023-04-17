@@ -49,7 +49,7 @@ stages:
 
 - template: templates/stages-full-release.yaml
   parameters:
-    environment: '${{ variables.environment }}'
+    environment: '${{ parameters.environment }}'
     destroyOldEnvironment: ${{ parameters.destroyEnvironment }}
     trafficSwitchSteps:
     - 100
