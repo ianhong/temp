@@ -25,6 +25,8 @@ parameters:
 variables:
 - name:  'environment' # set the environment name as variable
   value: 'adt'
+- name: 'synopsys_project_name'
+  value: 'DigAPB'
 
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - name:  'workingDirectory'    # Terraform root working directory
@@ -42,3 +44,34 @@ stages:
     destroyOldEnvironment: ${{ parameters.destroyEnvironment }}
     trafficSwitchSteps:
     - 100
+
+- stage: Synopsys_Scanning
+  condition: always()
+  jobs:
+  - job: Synopsys
+    steps: 
+      - task: Bash@3
+        displayName: 'Workaround: Set Java environment variables manually'
+        inputs:
+          targetType: 'inline'
+          script: |
+              cd ~
+              echo "##vso[task.setvariable variable=HOME]$(pwd)"
+              echo "##vso[task.setvariable variable=USER]$(whoami)"
+              echo "##vso[task.setvariable variable=JAVA_HOME_11_X64]/usr/lib/jvm/default-java"
+              echo "##vso[task.setvariable variable=JAVA_HOME]/usr/lib/jvm/default-java"
+
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'LocalDirectory'
+          jdkFile: '/usr/lib/jvm/default-java'
+          cleanDestinationDirectory: false
+          
+      - task: SynopsysDetectTask@8
+        inputs:
+          BlackDuckService: 'Synopsys SBOM Prod'
+          DetectArguments: '--detect.project.name=$(synopsys_project_name) --detect.project.version.name=$(Build.SourceBranchName)'
+          DetectVersion: 'latest'
+          AddTaskSummary: true

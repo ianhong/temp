@@ -49,7 +49,8 @@ test('shoppinguserflow', async ({ page }) => {
     }
 
     // check the pagetitle
-    var pageTitle = await page.$$('p.subtitle.has-text-grey');
+    //var pageTitle = await page.$$('p.subtitle.has-text-grey');
+    const pageTitle = await page.title();
 
     console.log(`*** Found ${pageTitle.length} page title`);
 
