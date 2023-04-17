@@ -21,10 +21,17 @@ parameters:
   displayName: "Destroy environment at the end"
   type: boolean
   default: false
+- name: environment
+  displayName: 'Environment (Subscriptions)'
+  type: string
+  default: 'adt'
+  values:
+  - adt
+  - adt001
+  - adt002
+  - adt003
 
 variables:
-- name:  'environment' # set the environment name as variable
-  value: 'adt'
 - name: 'synopsys_project_name'
   value: 'DigAPB'
 
