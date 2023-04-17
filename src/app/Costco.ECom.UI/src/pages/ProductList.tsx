@@ -43,7 +43,7 @@ const ProductList = () => {
             </PageTitle>
             {
                 loading ? <Spinner /> : (
-                    <div className='columns is-multiline'>
+                    <div className='catalog-item columns is-multiline'>
                         {inventories && inventories.filter(i => i.Product_Qty_On_Hand > 0).map((inventory: Inventory, index: number) => (
                             <div className='column is-4-tablet is-3-widescreen' key={inventory.id}>
                                 <div className="card">
