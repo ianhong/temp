@@ -393,8 +393,8 @@ stages:
       testGlobalEndpoint: false
 
 - ${{ each step in parameters.trafficSwitchSteps }}: # based on the list parameter trafficSwitchSteps this step will be repeated n number of times
-  pool: $(buildpoolname)
   - template: stages-configure-frontdoor.yaml
+    pool: $(buildpoolname)
     parameters:
       trafficWeightNewBackends: ${{ step }}
 
