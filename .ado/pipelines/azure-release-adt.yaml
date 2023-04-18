@@ -39,15 +39,15 @@ variables:
   value: 'az-np-svc-609-DigAPB-ADT'
 - name:  'environment' # set the environment name as variable
   value: '${{ parameters.environment }}'
+- name: 'buildpoolname'
+  value: '${{ parameters.environment }}-private-agents'
 
 - template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
 
 stages:
 
-pool:
-  name: '${{ parameters.environment }}-private-agents' # self-hosted agentpool
-
 - template: templates/stages-full-release.yaml
+  pool: $(buildpoolname)
   parameters:
     environment: '${{ parameters.environment }}'
     destroyOldEnvironment: ${{ parameters.destroyEnvironment }}
@@ -58,6 +58,7 @@ pool:
   condition: always()
   jobs:
   - job: Synopsys
+    pool: $(buildpoolname)
     steps: 
       - task: Bash@3
         displayName: 'Workaround: Set Java environment variables manually'
