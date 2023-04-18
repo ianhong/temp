@@ -13,9 +13,6 @@ trigger: none
 
 pr: none
 
-pool:
-  name: 'adt002-private-agents' # self-hosted agentpool
-
 parameters:
 - name: destroyEnvironment
   displayName: "Destroy environment at the end"
@@ -30,6 +27,9 @@ parameters:
   - adt001
   - adt002
   - adt003
+
+pool:
+  name: '${{ parameters.environment }}-private-agents' # self-hosted agentpool
 
 variables:
 - name: 'synopsys_project_name'
