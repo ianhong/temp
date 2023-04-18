@@ -1,4 +1,4 @@
-resource "azurerm_consumption_budget_resource_group" "rg_budget" {
+resource "azurerm_consumption_budget_resource_group" "regional_rg_budget" {
   name       = "${azurerm_resource_group.stamp.name}_budget"
   amount     = 100
   time_grain = "Monthly" // Monthly, Quarterly, Annually
