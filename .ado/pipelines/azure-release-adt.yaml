@@ -22,7 +22,7 @@ parameters:
   type: boolean
   default: false
 - name: environment
-  displayName: 'Environment'
+  displayName: 'Environment (Subscriptions)'
   type: string
   default: 'adt002'
   values:
