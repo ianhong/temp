@@ -42,6 +42,8 @@ variables:
   value: 'az-np-svc-609-DigAPB-ADT'
 - name:  'environment' # set the environment name as variable
   value: '${{ parameters.environment }}'
+- name: 'buildpoolname'
+  value: '${{ parameters.environment }}-private-agents'
 
 - template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
 
@@ -51,6 +53,7 @@ stages:
   parameters:
     environment: '${{ parameters.environment }}'
     destroyOldEnvironment: ${{ parameters.destroyEnvironment }}
+    buildpoolname: 
     trafficSwitchSteps:
     - 100
 
