@@ -47,7 +47,6 @@ variables:
 stages:
 
 - template: templates/stages-full-release.yaml
-  pool: $(buildpoolname)
   parameters:
     environment: '${{ parameters.environment }}'
     destroyOldEnvironment: ${{ parameters.destroyEnvironment }}
