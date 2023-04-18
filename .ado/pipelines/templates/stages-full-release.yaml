@@ -394,9 +394,9 @@ stages:
 
 - ${{ each step in parameters.trafficSwitchSteps }}: # based on the list parameter trafficSwitchSteps this step will be repeated n number of times
   - template: stages-configure-frontdoor.yaml
-    pool: $(buildpoolname)
     parameters:
       trafficWeightNewBackends: ${{ step }}
+      buildpoolname: $(buildpoolname)
 
 - stage: testingGlobalEndpoints # smoke-testing global endpoint only after the switchover has happened
   pool: $(buildpoolname)
