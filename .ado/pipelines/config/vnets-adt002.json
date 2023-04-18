@@ -1,5 +1,5 @@
 {
     "westus3": [
-       "/subscriptions/b4f68a53-2e7a-49cd-9420-b2e5801b3c70/resourceGroups/digital-adt001-westus3-vnet-rg/providers/Microsoft.Network/virtualNetworks/adt001-uswest3-vnet"
+       "/subscriptions/b4f68a53-2e7a-49cd-9420-b2e5801b3c70/resourceGroups/digital-adt001-westus3-vnet-rg/providers/Microsoft.Network/virtualNetworks/adt002-uswest3-vnet"
     ]
 }
