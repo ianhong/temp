@@ -13,6 +13,9 @@ trigger: none
 
 pr: none
 
+pool:
+  name: 'adt002-private-agents' # default buildpool to use - will be overridden later
+
 parameters:
 - name: destroyEnvironment
   displayName: "Destroy environment at the end"
@@ -21,9 +24,8 @@ parameters:
 - name: environment
   displayName: 'Environment'
   type: string
-  default: 'adt'
+  default: 'adt002'
   values:
-  - adt
   - adt001
   - adt002
   - adt003
@@ -50,6 +52,7 @@ stages:
   parameters:
     environment: '${{ parameters.environment }}'
     destroyOldEnvironment: ${{ parameters.destroyEnvironment }}
+    buildpoolname: $(buildpoolname)
     trafficSwitchSteps:
     - 100
 

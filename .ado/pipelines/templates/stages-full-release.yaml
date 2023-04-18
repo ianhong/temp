@@ -4,6 +4,8 @@ parameters:
   - name: destroyOldEnvironment
     type: boolean
     default: true
+  - name: buildpoolname
+    type: string
   - name: trafficSwitchSteps # in which steps (weights) the gradual traffic switch in Front Door should happen
     type: object
     default:
@@ -15,6 +17,7 @@ stages:
 
 - stage: deployglobalinfrastructure
   displayName: 'Deploy Global Infrastructure'
+  pool: $(buildpoolname)
   jobs:
 
   - deployment: deployterraformglobalresources
@@ -146,6 +149,7 @@ stages:
 
 - stage: deployreleaseinfrastructure
   displayName: 'Deploy Release Unit Infrastructure' # Deploy Release Unit Azure Infrastructure
+  pool: $(buildpoolname)
   dependsOn: deployglobalinfrastructure
   jobs:
   - job: deployterraform
@@ -202,12 +206,14 @@ stages:
                                     -var custom_dns_zone_resourcegroup_name=$(envDnsZoneRG) -var custom_dns_zone=$(envDomainName)'
 
 - stage: deployconfiguration
+  pool: $(buildpoolname)
   displayName: 'Deploy Configuration' # Apply configuration to Azure Infrastructure
   dependsOn: deployreleaseinfrastructure
   jobs:
   - template: jobs-deploy-configuration.yaml
 
 - stage: testcode
+  pool: $(buildpoolname)
   displayName: 'Test Application Code'
   dependsOn: [] # can run in parallel to the global infra deployment at the very start
   jobs:
@@ -217,6 +223,7 @@ stages:
       workingDirectory: 'src/app'
 
 - stage: buildapplication
+  pool: $(buildpoolname)
   displayName: 'Build Application Code'
   dependsOn:
    - testcode
@@ -261,6 +268,7 @@ stages:
       workingDirectory: 'src/app/Costco.ECom.UI/'
 
 - stage: deployworkload # Deploy workload to previously created infrastructure
+  pool: $(buildpoolname)
   displayName: 'Deploy Workload'
   dependsOn:
   - deployconfiguration
@@ -271,6 +279,7 @@ stages:
 
 # In order for the build agents to be able to test the stamps directly, they need a Private Endpoint on the internal ingress Private Link service
 - stage: createIngressPrivateEndpoints
+  pool: $(buildpoolname)
   displayName: 'Create Build Agent Private Endpoints for AKS Ingress'
   dependsOn: deployworkload
   jobs:
@@ -367,12 +376,14 @@ stages:
                                     $(tfParameterPrivateLinkConfigs)'
 
 - stage: importSampleData # Import sample data
+  pool: $(buildpoolname)
   displayName: 'Import sample data'
   dependsOn: createIngressPrivateEndpoints
   jobs:
   - template: jobs-init-sampledata.yaml
 
 - stage: testingOnlyStampEndpoints # smoke-testing the stamp endpoints
+  pool: $(buildpoolname)
   displayName: 'Test Stamp Endpoints'
   dependsOn: importSampleData
   jobs:
@@ -387,6 +398,7 @@ stages:
       trafficWeightNewBackends: ${{ step }}
 
 - stage: testingGlobalEndpoints # smoke-testing global endpoint only after the switchover has happened
+  pool: $(buildpoolname)
   displayName: 'Test Global Endpoint'
   jobs:
   - template: jobs-smoke-testing.yaml
@@ -396,6 +408,7 @@ stages:
 
 - ${{ if eq(parameters.destroyOldEnvironment, 'true') }}: # Only for E2E the user could have manually chosen not to destroy the environment
   - stage: destroyOldInfrastructure                # In E2E this will destroy the infrastructure that was deployed from the same branch. For int/prod, this will fetch the previous release infra and destroy that
+    pool: $(buildpoolname)
     displayName: 'Destroy Infrastructure'
     jobs:
     - deployment: 'destroyOldReleaseStampsJob' # Using a deployment job so that we can have manual approves, which are configured on the environment specificed below
