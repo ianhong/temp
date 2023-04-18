@@ -13,6 +13,9 @@ trigger: none
 
 pr: none
 
+pool:
+  name: 'adt002-private-agents' # self-hosted agentpool
+
 parameters:
 - name: destroyEnvironment
   displayName: "Destroy environment at the end"
@@ -41,9 +44,6 @@ variables:
   value: '${{ parameters.environment }}'
 
 - template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
-
-pool:
-  name: '${{ variables.environment }}-private-agents' # self-hosted agentpool
 
 stages:
 
