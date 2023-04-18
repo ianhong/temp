@@ -28,9 +28,6 @@ parameters:
   - adt002
   - adt003
 
-pool:
-  name: '${{ parameters.environment }}-private-agents' # self-hosted agentpool
-
 variables:
 - name: 'synopsys_project_name'
   value: 'DigAPB'
@@ -42,6 +39,9 @@ variables:
   value: 'az-np-svc-609-DigAPB-ADT'
 - name:  'environment' # set the environment name as variable
   value: '${{ parameters.environment }}'
+
+pool:
+  name: '${{ variables.environment }}-private-agents' # self-hosted agentpool
 
 - template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
 
