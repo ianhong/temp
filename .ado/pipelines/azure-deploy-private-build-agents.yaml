@@ -11,8 +11,9 @@ parameters:
   default: 'adt'
   values:
   - adt
-  - int
-  - prod
+  - adt001
+  - adt002
+  - adt003
  
 pool:
   vmImage: 'ubuntu-latest'
