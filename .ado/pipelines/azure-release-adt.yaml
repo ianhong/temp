@@ -40,10 +40,10 @@ variables:
 - name:  'environment' # set the environment name as variable
   value: '${{ parameters.environment }}'
 
+- template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
+
 pool:
   name: '${{ variables.environment }}-private-agents' # self-hosted agentpool
-
-- template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
 
 stages:
 
