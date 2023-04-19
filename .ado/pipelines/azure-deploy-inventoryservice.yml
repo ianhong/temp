@@ -30,6 +30,7 @@ stages:
 #terraformOutputReleaseUnitInfra
 # into into ${{ parameters.workingDirectory }}
 - stage: download_artifacts_from_infra_release_pipeline
+  displayName: 'Download tf artifacts from Infra Build'
   jobs:
   - job: get_infra_tfoutput
     steps:
