@@ -21,7 +21,7 @@ variables:
 - name:  'environment' # set the environment name as variable
   value: 'adt002' #update this later to be dynamic
 
-- template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
+- template: config/variables-values-${{ variables.environment }}.yaml # contains environment-specific values (non-secret)
 
 stages:
 # download the needed tfoutput files from the main adt pipeline
