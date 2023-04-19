@@ -28,7 +28,6 @@ stages:
 #specific pipeline artifact - published
 #terraformOutputGlocalInfra
 #terraformOutputReleaseUnitInfra
-#terraformOutputPrivateLinkInfra
 # into into ${{ parameters.workingDirectory }}
 - stage: Download_artifacts_from_infra_release_pipeline
   jobs:
@@ -55,3 +54,7 @@ stages:
         pipelineId: '7259'
         artifactName: 'terraformOutputReleaseUnitInfra'
         targetPath: '$(Variables.workingDirectory)'
+  
+    - task: CmdLine@2
+      inputs:
+        script: 'ls $(variables.workingDirectory)'
