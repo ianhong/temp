@@ -43,7 +43,7 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputGlobalInfra'
-        targetPath: '$(Build.SourcesDirectory)/terraformOutputGlobalInfra''
+        targetPath: '$(Build.SourcesDirectory)/terraformOutputGlobalInfra'
 
     - task: DownloadPipelineArtifact@2
       inputs:
@@ -54,7 +54,7 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputReleaseUnitInfra'
-        targetPath: '$(Build.SourcesDirectory)/terraformOutputReleaseUnitInfra''
+        targetPath: '$(Build.SourcesDirectory)/terraformOutputReleaseUnitInfra'
   
     - task: CmdLine@2
       inputs:
@@ -69,10 +69,10 @@ stages:
       jobName:          'CodeTests'
       workingDirectory: 'src/app'
 
+
 - stage: buildapplication
   displayName: 'Build Inventory Service'
-
-  jobs: # using jobs so they each runs in parallel
+  jobs: 
 
   # this template already includes the call to parse global tf
   - template: templates/jobs-container-build.yaml
