@@ -42,7 +42,7 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputGlobalInfra'
-        targetPath: '$(workingDirectory)/terraformOutputGlobalInfra'
+        targetPath: '$(Build.SourcesDirectory)/terraformOutputGlobalInfra'
 
     - task: DownloadPipelineArtifact@2
       inputs:
@@ -53,11 +53,11 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputReleaseUnitInfra'
-        targetPath: '$(workingDirectory)/terraformOutputReleaseUnitInfra'
+        targetPath: '$(Build.SourcesDirectory)/terraformOutputReleaseUnitInfra'
   
     - task: CmdLine@2
       inputs:
-        script: 'ls $(workingDirectory)'
+        script: 'ls $(Build.SourcesDirectory)'
 
 # test app code
 - stage: testcode
