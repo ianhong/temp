@@ -29,7 +29,7 @@ stages:
 #terraformOutputGlocalInfra
 #terraformOutputReleaseUnitInfra
 # into into ${{ parameters.workingDirectory }}
-- stage: Download_artifacts_from_infra_release_pipeline
+- stage: download_artifacts_from_infra_release_pipeline
   jobs:
   - job: get_infra_tfoutput
     steps:
@@ -58,3 +58,28 @@ stages:
     - task: CmdLine@2
       inputs:
         script: 'ls $(workingDirectory)'
+
+# test app code
+- stage: testcode
+  displayName: 'Test Application Code'
+  dependsOn: []
+  jobs:
+  - template: jobs-code-tests.yaml
+    parameters:
+      jobName:          'CodeTests'
+      workingDirectory: 'src/app'
+
+
+- stage: buildapplication
+  displayName: 'Build Inventory Service'
+  dependsOn:
+   - testcode
+   - download_artifacts_from_infra_release_pipeline 
+  jobs: # using jobs so they each runs in parallel
+
+  # this template already includes the call to parse global tf
+  - template: jobs-container-build.yaml
+    parameters:
+      jobName:                  'inventoryservice' # unique pipeline job name
+      containerImageName:       '$(inventoryserviceImageName)'  # container image name for CatalogService
+      containerImageDockerFile: '$(inventoryserviceDockerfile)' # dockerfile used to build the CatalogService
