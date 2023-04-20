@@ -4,6 +4,7 @@ jobs: # using jobs so they each run in parallel
   timeoutInMinutes: 120 # extend the default timeout of 60min since getting a certificate from Lets Encrypt sometimes takes a while
   displayName: 'Deploy HealthService workload'
   steps:
+    - checkout: none
 
     - download: current # download pipeline artifacts
 
