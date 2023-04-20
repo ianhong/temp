@@ -65,7 +65,8 @@ stages:
   displayName: 'Set environment variables'
   jobs:
   - job: aparsevars
-  - template: templates/steps-set-pipeline-variables.yaml # load the set-pipeline-variables function (used for tags and prefixes)
+    steps:
+    - template: templates/steps-set-pipeline-variables.yaml # load the set-pipeline-variables function (used for tags and prefixes)
 
 # test app code
 - stage: testcode
