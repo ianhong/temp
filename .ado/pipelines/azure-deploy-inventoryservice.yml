@@ -62,7 +62,7 @@ stages:
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(workingDirectory)'
+        PathtoPublish: ${{ parameters.workingDirectory }}
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
