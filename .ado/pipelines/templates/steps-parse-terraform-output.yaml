@@ -7,8 +7,7 @@ steps:
   inputs:
     targetType: inline
     script: |
-      Write-Host "CWD: ${{ parameters.workingDirectory }}"
-      $terraformOutput = Get-ChildItem '${{ parameters.workingDirectory }}/*.json' | Get-Content | ConvertFrom-JSON
+      $terraformOutput = Get-ChildItem ${{ parameters.workingDirectory }}/*.json | Get-Content | ConvertFrom-JSON
 
       # Read terraform output values which we need in the Release Unit terraform apply step
       # Therefore they get stored as ADO pipeline variables so we can reference them in the next step as inputs
