@@ -58,15 +58,11 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputReleaseUnitInfra'
-        targetPath: '$(Pipeline.Workspace)/terraformOutputReleaseUnitInfra'
+        targetPath: '$(Build.SourcesDirectory)/terraformOutputReleaseUnitInfra'
 
-    - publish: '$(Pipeline.Workspace)/terraformOutputReleaseUnitInfra/ReleaseUnitInfra-tfoutput.json'
-      artifact: 'terraformOutputGlobalInfra' # artifact name
+    - publish: '$(Build.SourcesDirectory)/terraformOutputReleaseUnitInfra/ReleaseUnitInfra-tfoutput.json'
+      artifact: 'terraformOutputReleaseUnitInfra' # artifact name
       displayName: 'Publish Release Unit Terraform Outputs JSON' 
-  
-    - task: CmdLine@2
-      inputs:
-        script: 'ls $(Pipeline.Workspace)'
 
     # - task: PublishBuildArtifacts@1
     #   inputs:
