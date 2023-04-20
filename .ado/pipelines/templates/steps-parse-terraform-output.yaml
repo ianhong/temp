@@ -7,12 +7,13 @@ steps:
   inputs:
     targetType: inline
     script: |
+      $showDir = Get-ChildItem ${{ parameters.workingDirectory }} -Recurse
       $terraformOutput = Get-ChildItem ${{ parameters.workingDirectory }} -Include *.json | Get-Content | ConvertFrom-JSON
 
       # Read terraform output values which we need in the Release Unit terraform apply step
       # Therefore they get stored as ADO pipeline variables so we can reference them in the next step as inputs
 
-      Write-Host "teraformOutput Value is: " $terraformOutput
+      Write-Host "ShowDir Value is: " $showDir
 
       $keyValues = $terraformOutput.psobject.properties | select name,value
       foreach($output in $keyValues)
