@@ -12,6 +12,8 @@ steps:
       # Read terraform output values which we need in the Release Unit terraform apply step
       # Therefore they get stored as ADO pipeline variables so we can reference them in the next step as inputs
 
+      Write-Host "teraformOutput Value is: " $terraformOutput
+
       $keyValues = $terraformOutput.psobject.properties | select name,value
       foreach($output in $keyValues)
       {
