@@ -60,6 +60,12 @@ stages:
       inputs:
         script: 'ls $(Build.SourcesDirectory)'
 
+
+- stage: setglobalvars
+  displayName: 'Set environment variables'
+  jobs:
+  - template: templates/steps-set-pipeline-variables.yaml # load the set-pipeline-variables function (used for tags and prefixes)
+
 # test app code
 - stage: testcode
   displayName: 'Test Application Code'
