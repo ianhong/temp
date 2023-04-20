@@ -64,7 +64,7 @@ stages:
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: $(Pipeline.Workspace)
+        PathtoPublish: $(Build.Repository.LocalPath)
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
