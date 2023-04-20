@@ -43,7 +43,8 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputGlobalInfra'
-        targetPath: '$(Pipeline.Workspace)/terraformOutputGlobalInfra'
+        #targetPath: '$(Pipeline.Workspace)/terraformOutputGlobalInfra'
+        targetPath: '$(workingDirectory)/terraformOutputGlobalInfra'
 
     - task: DownloadPipelineArtifact@2
       inputs:
@@ -54,7 +55,8 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputReleaseUnitInfra'
-        targetPath: '$(Pipeline.Workspace)/terraformOutputReleaseUnitInfra'
+        #targetPath: '$(Pipeline.Workspace)/terraformOutputReleaseUnitInfra'
+        targetPath: '$(workingDirectory)/terraformOutputReleaseUnitInfra'
   
     - task: CmdLine@2
       inputs:
@@ -62,7 +64,7 @@ stages:
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: ${{ parameters.workingDirectory }}
+        PathtoPublish: $(workingDirectory)
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
