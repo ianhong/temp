@@ -43,11 +43,12 @@ stages:
         buildVersionToDownload: 'specific'
         pipelineId: '7259'
         artifactName: 'terraformOutputGlobalInfra'
-        targetPath: '$(Pipeline.Workspace)/terraformOutputGlobalInfra'
+        targetPath: '$(Build.SourcesDirectory)/terraformOutputGlobalInfra'
     
-    - publish: '$(Pipeline.Workspace)/terraformOutputGlobalInfra/GlobalInfra-tfoutput.json'
+    - publish: '$($(Build.SourcesDirectory))/terraformOutputGlobalInfra/GlobalInfra-tfoutput.json'
       artifact: 'terraformOutputGlobalInfra' # artifact name
       displayName: 'Publish Global Terraform Outputs JSON' 
+      target: pipeline
 
     - task: DownloadPipelineArtifact@2
       inputs:
