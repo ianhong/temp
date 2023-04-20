@@ -44,6 +44,10 @@ stages:
         pipelineId: '7259'
         artifactName: 'terraformOutputGlobalInfra'
         targetPath: '$(Pipeline.Workspace)/terraformOutputGlobalInfra'
+    
+    - publish: '$(Pipeline.Workspace)/terraformOutputGlobalInfra/GlobalInfra-tfoutput.json'
+      artifact: 'terraformOutputGlobalInfra' # artifact name
+      displayName: 'Publish Global Terraform Outputs JSON' 
 
     - task: DownloadPipelineArtifact@2
       inputs:
@@ -55,6 +59,10 @@ stages:
         pipelineId: '7259'
         artifactName: 'terraformOutputReleaseUnitInfra'
         targetPath: '$(Pipeline.Workspace)/terraformOutputReleaseUnitInfra'
+
+    - publish: '$(Pipeline.Workspace)/terraformOutputReleaseUnitInfra/ReleaseUnitInfra-tfoutput.json'
+      artifact: 'terraformOutputGlobalInfra' # artifact name
+      displayName: 'Publish Release Unit Terraform Outputs JSON' 
   
     - task: CmdLine@2
       inputs:
@@ -71,6 +79,8 @@ stages:
   jobs:
   - job: aparsevars
     steps:
+    - checkout: none
+      clean: false
     - template: templates/steps-set-pipeline-variables.yaml # load the set-pipeline-variables function (used for tags and prefixes)
 
 # test app code
