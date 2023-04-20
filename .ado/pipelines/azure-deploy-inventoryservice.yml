@@ -64,7 +64,7 @@ stages:
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: $(workingDirectory)
+        PathtoPublish: $(Agent.BuildDirectory)
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
