@@ -60,11 +60,11 @@ stages:
       inputs:
         script: 'ls $(Pipeline.Workspace)'
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: $(Pipeline.Workspace)
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+    # - task: PublishBuildArtifacts@1
+    #   inputs:
+    #     PathtoPublish: $(Pipeline.Workspace)
+    #     ArtifactName: 'drop'
+    #     publishLocation: 'Container'
 
 - stage: setglobalvars
   displayName: 'Set environment variables'
