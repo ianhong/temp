@@ -81,34 +81,6 @@ stages:
 - stage: buildapplication
   displayName: 'Build Inventory Service'
   jobs: 
-  - job: get_infra_tfoutput
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'specific'
-        project: 'b5cf4ec3-b4b5-4309-8c4c-d6628fcae0d8'
-        definition: '1820'
-        specificBuildWithTriggering: true
-        buildVersionToDownload: 'specific'
-        pipelineId: '7259'
-        artifactName: 'terraformOutputGlobalInfra'
-        targetPath: '$(Build.SourcesDirectory)/terraformOutputGlobalInfra'
-
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'specific'
-        project: 'b5cf4ec3-b4b5-4309-8c4c-d6628fcae0d8'
-        definition: '1820'
-        specificBuildWithTriggering: true
-        buildVersionToDownload: 'specific'
-        pipelineId: '7259'
-        artifactName: 'terraformOutputReleaseUnitInfra'
-        targetPath: '$(Build.SourcesDirectory)/terraformOutputReleaseUnitInfra'
-  
-    - task: CmdLine@2
-      inputs:
-        script: 'ls $(Build.SourcesDirectory)'
-  - job: app_build
   # this template already includes the call to parse global tf
   - template: templates/jobs-container-build.yaml
     parameters:
