@@ -108,9 +108,10 @@ stages:
     - task: CmdLine@2
       inputs:
         script: 'ls $(Build.SourcesDirectory)'
+  - job: app_build
   # this template already includes the call to parse global tf
-    - template: templates/jobs-container-build.yaml
-      parameters:
-        jobName:                  'inventoryservice' # unique pipeline job name
-        containerImageName:       '$(inventoryserviceImageName)'  # container image name for CatalogService
-        containerImageDockerFile: '$(inventoryserviceDockerfile)' # dockerfile used to build the CatalogService
+  - template: templates/jobs-container-build.yaml
+    parameters:
+      jobName:                  'inventoryservice' # unique pipeline job name
+      containerImageName:       '$(inventoryserviceImageName)'  # container image name for CatalogService
+      containerImageDockerFile: '$(inventoryserviceDockerfile)' # dockerfile used to build the CatalogService
