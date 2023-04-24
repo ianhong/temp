@@ -29,6 +29,7 @@ parameters:
   - adt001
   - adt002
   - adt003
+  - adt004
 
 variables:
 - name: 'synopsys_project_name'
@@ -37,8 +38,11 @@ variables:
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - name:  'workingDirectory'    # Terraform root working directory
   value: 'src/infra/workload'
-- name:  'azureServiceConnection' # environment specific service connection
-  value: 'az-np-svc-609-DigAPB-ADT'
+- name:  'azureServiceConnection' # environment specific service connection TODO migrate into config file(s)
+  ${{ if eq( parameters['environment'], 'adt004') }}:
+    value: 'az-np-svc-609-Digital-NPD'
+  ${{ else }}:
+    value: 'az-np-svc-609-DigAPB-ADT'
 - name:  'environment' # set the environment name as variable
   value: '${{ parameters.environment }}'
 - name: 'buildpoolname'
