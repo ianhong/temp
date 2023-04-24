@@ -8,12 +8,9 @@ parameters:
 - name: environment
   displayName: 'Environment (Subscriptions)'
   type: string
-  default: 'adt'
+  default: 'adt004'
   values:
-  - adt
-  - adt001
-  - adt002
-  - adt003
+  - adt004
  
 pool:
   vmImage: 'ubuntu-latest'
@@ -24,7 +21,7 @@ variables:
 - name:  'workingDirectory'       # Terraform working directory
   value: 'src/infra/build-agents'
 - name:  'azureServiceConnection' # environment specific service connection
-  value: 'az-np-svc-609-DigAPB-ADT'
+  value: 'az-np-svc-609-Digital-NPD'
 
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - template: config/variables-values-${{ parameters.environment }}.yaml # contains environment-specific values (non-secret)
