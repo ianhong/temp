@@ -13,10 +13,10 @@ pool:
 steps:
 - task: AzureCLI@2
   inputs:
-    azureSubscription: az-np-svc-609-DigAPB-ADT
+    azureSubscription: az-np-svc-609-Digital-NPD
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      az group create --name digital-adt002-westus3-vnet-rg --location westus3
-      az network vnet create --name adt002-uswest3-vnet --address-prefix 10.3.0.0/23 --resource-group digital-adt002-westus3-vnet-rg --location westus3
+      az group create --name digital-adt001-westus3-vnet-rg --location westus3
+      az network vnet create --name adt001-uswest3-vnet --address-prefix 10.2.0.0/23 --resource-group digital-adt001-westus3-vnet-rg --location westus3
     
