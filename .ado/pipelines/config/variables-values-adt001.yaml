@@ -17,6 +17,10 @@ variables:
 - name:  'terraformStorageAccount'
   value: '$(prefix)tfstatestore'     
 
+# azure service connection name
+- name:  'azureServiceConnection' # environment specific service connection
+  value: 'az-np-svc-609-Digital-NPD'
+
 # Other settings
 - name:  'contactEmail'
   value: 'cberon@costco.com'  # <===== CHANGE THIS VALUE TO THE ENVIRONMENT OWNER GROUP

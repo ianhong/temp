@@ -38,8 +38,6 @@ variables:
 - template: config/configuration.yaml # contains version numbers and global configuration settings
 - name:  'workingDirectory'    # Terraform root working directory
   value: 'src/infra/workload'
-- name:  'azureServiceConnection' # environment specific service connection
-  value: 'az-np-svc-609-DigAPB-ADT'
 - name:  'environment' # set the environment name as variable
   value: '${{ parameters.environment }}'
 - name: 'buildpoolname'
