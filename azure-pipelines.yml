@@ -13,7 +13,7 @@ pool:
 steps:
 - task: AzureCLI@2
   inputs:
-    azureSubscription: az-np-svc-609-DigAPB-ADT
+    azureSubscription: az-np-svc-609-Digital-NPD
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
