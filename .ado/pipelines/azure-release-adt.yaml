@@ -24,11 +24,12 @@ parameters:
 - name: environment
   displayName: 'Environment (Subscriptions)'
   type: string
-  default: 'adt002'
+  default: 'adt001'
   values:
   - adt001
   - adt002
   - adt003
+  - adt004
 
 variables:
 - name: 'synopsys_project_name'
@@ -56,6 +57,7 @@ stages:
     trafficSwitchSteps:
     - 100
 
+# run the AppSec SAST and SBOM generator scanning tools.  These should ideally be moved up into the app build + test section
 - stage: Synopsys_Scanning
   condition: always()
   jobs:
