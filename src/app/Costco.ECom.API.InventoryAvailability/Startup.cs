@@ -2,6 +2,7 @@
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.FeatureManagement;
 
 namespace Costco.ECom.API.InventoryAvailability
 {
@@ -25,6 +26,9 @@ namespace Costco.ECom.API.InventoryAvailability
                 ConnectionString = Configuration[SysConfiguration.ApplicationInsightsConnStringKeyName],
                 EnableAdaptiveSampling = bool.TryParse(Configuration[SysConfiguration.ApplicationInsightsAdaptiveSamplingName], out bool result) ? result : true
             });
+
+            //load default featuremanagement scope "FeatureManagement"
+            services.AddFeatureManagement();
 
             services.AddSingleton<TokenCredential>(builder =>
             {
