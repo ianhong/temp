@@ -31,7 +31,7 @@ namespace Costco.ECom.API.InventoryAvailability
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-          /*  .ConfigureAppConfiguration((context, config) =>
+            .ConfigureAppConfiguration((context, config) =>
             {
                 // Load values from k8s CSI Key Vault driver mount point
                 config.AddKeyPerFile(directoryPath: "/mnt/secrets-store/", optional: true, reloadOnChange: true);
@@ -46,8 +46,8 @@ namespace Costco.ECom.API.InventoryAvailability
                                             outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}")
                                     .WriteTo.ApplicationInsights(builtConfig[SysConfiguration.ApplicationInsightsConnStringKeyName], TelemetryConverter.Traces)
                                     .CreateLogger();
-            }) */
-            .ConfigureWebHostDefaults(webBuilder =>
+            })
+            /*.ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder
                 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -75,7 +75,11 @@ namespace Costco.ECom.API.InventoryAvailability
                                         .CreateLogger();
                 })
                 .UseStartup<Startup>();
-            })
-            .UseSerilog();
+            }) */
+            .UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+             {
+                webBuilder.UseStartup<Startup>();
+             });
     }
 }
