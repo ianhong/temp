@@ -28,7 +28,7 @@ namespace Costco.ECom.API.InventoryAvailability
             });
 
             //load default featuremanagement scope "FeatureManagement"
-            services.AddFeatureManagement();
+            // services.AddFeatureManagement();
 
             services.AddSingleton<TokenCredential>(builder =>
             {
